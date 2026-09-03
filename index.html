@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Casaca Club | Indumentaria Versión Jugador</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        :root {
+
+            --bg-dark: #121212;
+
+            --bg-card: #1e1e1e;
+
+            --accent-brown: #8B5A2B;
+
+            --accent-brown-hover: #A06832;
+
+            --text-light: #F5F5F5;
+
+            --text-muted: #A0A0A0;
+
+            --border-color: #333333;
+
+        }
+
+
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+            font-family: 'Roboto', sans-serif;
+
+        }
+
+
+
+        body {
+
+            background-color: var(--bg-dark);
+
+            color: var(--text-light);
+
+            line-height: 1.6;
+
+            padding-bottom: 60px;
+
+        }
+
+
+
+        h1, h2, h3, .logo {
+
+            font-family: 'Oswald', sans-serif;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        /* Header & Nav */
+
+        header {
+
+            background-color: rgba(18, 18, 18, 0.95);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            border-bottom: 1px solid var(--border-color);
+
+            padding: 1rem 2rem;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .logo {
+
+            font-size: 1.8rem;
+
+            font-weight: 700;
+
+            color: var(--text-light);
+
+            text-decoration: none;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        .logo span { color: var(--accent-brown); }
+
+
+
+        nav ul {
+
+            display: flex;
+
+            list-style: none;
+
+            gap: 1.5rem;
+
+        }
+
+
+
+        nav a {
+
+            color: var(--text-light);
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            font-size: 0.9rem;
+
+            transition: color 0.3s;
+
+        }
+
+
+
+        nav a:hover { color: var(--accent-brown); }
+
+
+
+        .cart-icon-btn {
+
+            background: none;
+
+            border: none;
+
+            color: var(--text-light);
+
+            font-size: 1.2rem;
+
+            cursor: pointer;
+
+            position: relative;
+
+        }
+
+
+
+        .cart-count {
+
+            background-color: var(--accent-brown);
+
+            color: white;
+
+            font-size: 0.75rem;
+
+            font-weight: bold;
+
+            border-radius: 50%;
+
+            padding: 2px 6px;
+
+            position: absolute;
+
+            top: -8px;
+
+            right: -10px;
+
+        }
+
+
+
+        /* Hero Section */
+
+        .hero {
+
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), 
+
+                        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200') center/cover no-repeat;
+
+            height: 70vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 0 1rem;
+
+        }
+
+
+
+        .hero h1 {
+
+            font-size: 3rem;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .hero p {
+
+            font-size: 1.2rem;
+
+            color: var(--text-muted);
+
+            max-width: 600px;
+
+            margin-bottom: 2rem;
+
+        }
+
+
+
+        .btn-primary {
+
+            background-color: var(--accent-brown);
+
+            color: white;
+
+            padding: 0.8rem 2rem;
+
+            border: none;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            transition: background 0.3s;
+
+            display: inline-block;
+
+        }
+
+
+
+        .btn-primary:hover { background-color: var(--accent-brown-hover); }
+
+
+
+        /* Trust Badges */
+
+        .trust-section {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 1.5rem;
+
+            padding: 3rem 2rem;
+
+            background-color: #181818;
+
+            border-bottom: 1px solid var(--border-color);
+
+        }
+
+
+
+        .trust-card {
+
+            text-align: center;
+
+            padding: 1rem;
+
+        }
+
+
+
+        .trust-card h3 {
+
+            color: var(--accent-brown);
+
+            font-size: 1.1rem;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .trust-card p {
+
+            color: var(--text-muted);
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        /* Catalog Section */
+
+        .catalog {
+
+            padding: 3rem 2rem;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .section-title {
+
+            text-align: center;
+
+            font-size: 2.2rem;
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        .filters {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 1rem;
+
+            margin-bottom: 2rem;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .filter-btn {
+
+            background: transparent;
+
+            border: 1px solid var(--border-color);
+
+            color: var(--text-light);
+
+            padding: 0.5rem 1.5rem;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            transition: all 0.3s;
+
+        }
+
+
+
+        .filter-btn.active, .filter-btn:hover {
+
+            background-color: var(--accent-brown);
+
+            border-color: var(--accent-brown);
+
+        }
+
+
+
+        .product-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+
+            gap: 2rem;
+
+        }
+
+
+
+        .product-card {
+
+            background-color: var(--bg-card);
+
+            border: 1px solid var(--border-color);
+
+            display: flex;
+
+            flex-direction: column;
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+
+
+        .tag-player {
+
+            position: absolute;
+
+            top: 10px;
+
+            left: 10px;
+
+            background-color: var(--accent-brown);
+
+            color: white;
+
+            font-size: 0.7rem;
+
+            font-weight: bold;
+
+            padding: 3px 8px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            z-index: 2;
+
+        }
+
+
+
+        .product-card img {
+
+            width: 100%;
+
+            height: 280px;
+
+            object-fit: cover;
+
+        }
+
+
+
+        .product-info {
+
+            padding: 1.2rem;
+
+            display: flex;
+
+            flex-direction: column;
+
+            flex-grow: 1;
+
+        }
+
+
+
+        .product-title {
+
+            font-size: 1.1rem;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .product-price {
+
+            font-size: 1.3rem;
+
+            font-weight: bold;
+
+            color: var(--accent-brown);
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .size-selector {
+
+            display: flex;
+
+            gap: 0.5rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .size-btn {
+
+            background-color: #2a2a2a;
+
+            border: 1px solid var(--border-color);
+
+            color: var(--text-light);
+
+            width: 35px;
+
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 0.8rem;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .size-btn.selected {
+
+            border-color: var(--accent-brown);
+
+            background-color: var(--accent-brown);
+
+        }
+
+
+
+        .add-to-cart {
+
+            width: 100%;
+
+            background-color: transparent;
+
+            border: 1px solid var(--accent-brown);
+
+            color: var(--text-light);
+
+            padding: 0.6rem;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+
+            transition: all 0.3s;
+
+            margin-top: auto;
+
+        }
+
+
+
+        .add-to-cart:hover {
+
+            background-color: var(--accent-brown);
+
+        }
+
+
+
+        /* Size Guide */
+
+        .size-guide-section {
+
+            background-color: #181818;
+
+            padding: 3rem 2rem;
+
+            border-top: 1px solid var(--border-color);
+
+            border-bottom: 1px solid var(--border-color);
+
+            margin-top: 3rem;
+
+        }
+
+
+
+        .size-guide-container {
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+            text-align: center;
+
+        }
+
+
+
+        .size-guide-container p {
+
+            color: var(--text-muted);
+
+            margin-top: 0.5rem;
+
+        }
+
+
+
+        /* Sidebar Cart */
+
+        .cart-sidebar {
+
+            position: fixed;
+
+            top: 0;
+
+            right: -400px;
+
+            width: 100%;
+
+            max-width: 380px;
+
+            height: 100vh;
+
+            background-color: var(--bg-card);
+
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+
+            z-index: 200;
+
+            transition: right 0.3s ease;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 1.5rem;
+
+        }
+
+
+
+        .cart-sidebar.open { right: 0; }
+
+
+
+        .cart-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-bottom: 1px solid var(--border-color);
+
+            padding-bottom: 1rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .close-cart {
+
+            background: none;
+
+            border: none;
+
+            color: var(--text-light);
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .cart-items {
+
+            flex-grow: 1;
+
+            overflow-y: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 1rem;
+
+        }
+
+
+
+        .cart-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background-color: #252525;
+
+            padding: 0.8rem;
+
+            border-radius: 4px;
+
+        }
+
+
+
+        .cart-item-details h4 { font-size: 0.93rem; }
+
+        .cart-item-details p { font-size: 0.85rem; color: var(--text-muted); }
+
+
+
+        .remove-item {
+
+            background: none;
+
+            border: none;
+
+            color: #ff4d4d;
+
+            cursor: pointer;
+
+            font-size: 0.8rem;
+
+        }
+
+
+
+        .cart-footer {
+
+            border-top: 1px solid var(--border-color);
+
+            padding-top: 1rem;
+
+            margin-top: 1rem;
+
+        }
+
+
+
+        .cart-total {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 1.2rem;
+
+            font-weight: bold;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .btn-whatsapp {
+
+            width: 100%;
+
+            background-color: #25D366;
+
+            color: white;
+
+            padding: 0.8rem;
+
+            border: none;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            display: block;
+
+            text-decoration: none;
+
+        }
+
+
+
+        /* Overlay */
+
+        .overlay {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            background: rgba(0,0,0,0.7);
+
+            z-index: 150;
+
+            display: none;
+
+        }
+
+        .overlay.active { display: block; }
+
+
+
+        /* Footer */
+
+        footer {
+
+            text-align: center;
+
+            padding: 2rem;
+
+            background-color: #0a0a0a;
+
+            color: var(--text-muted);
+
+            font-size: 0.85rem;
+
+            border-top: 1px solid var(--border-color);
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            header { padding: 1rem; }
+
+            nav { display: none; }
+
+            .hero h1 { font-size: 2.2rem; }
+
+            .cart-sidebar { width: 100%; }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <header>
+
+        <a href="#" class="logo">CASACA <span>CLUB</span></a>
+
+        <nav>
+
+            <ul>
+
+                <li><a href="#catalogo">Inicio</a></li>
+
+                <li><a href="#catalogo">Camisetas</a></li>
+
+                <li><a href="#catalogo">Shorts</a></li>
+
+                <li><a href="#catalogo">Combos</a></li>
+
+                <li><a href="#talles">Guía de Talles</a></li>
+
+            </ul>
+
+        </nav>
+
+        <button class="cart-icon-btn" id="open-cart-btn">
+
+            🛒 <span class="cart-count" id="cart-count">0</span>
+
+        </button>
+
+    </header>
+
+
+
+    <section class="hero">
+
+        <h1>VERSIÓN JUGADOR | MÁXIMA CALIDAD</h1>
+
+        <p>Telas microperforadas, escudos termosellados y ajuste atlético. Lo mismo que usan los profesionales en la cancha.</p>
+
+        <a href="#catalogo" class="btn-primary">Ver Catálogo</a>
+
+    </section>
+
+
+
+    <section class="trust-section">
+
+        <div class="trust-card">
+
+            <h3>Calidad Player Premium</h3>
+
+            <p>Detalles técnicos idénticos a las indumentarias oficiales de juego.</p>
+
+        </div>
+
+        <div class="trust-card">
+
+            <h3>Envíos a Todo el País</h3>
+
+            <p>Despachamos tu paquete de manera segura en 24 a 48 hs.</p>
+
+        </div>
+
+        <div class="trust-card">
+
+            <h3>Atención Directa</h3>
+
+            <p>Asesoramiento personalizado vía WhatsApp durante toda tu compra.</p>
+
+        </div>
+
+        <div class="trust-card">
+
+            <h3>Pagos Flexibles</h3>
+
+            <p>Aceptamos tarjetas de crédito, débito y transferencias bancarias.</p>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="catalog" id="catalogo">
+
+        <h2 class="section-title">Catálogo Destacado</h2>
+
+        
+
+        <div class="filters">
+
+            <button class="filter-btn active" data-filter="all">Todos</button>
+
+            <button class="filter-btn" data-filter="camiseta">Camisetas</button>
+
+            <button class="filter-btn" data-filter="short">Shorts</button>
+
+            <button class="filter-btn" data-filter="combo">Combos</button>
+
+        </div>
+
+
+
+        <div class="product-grid" id="product-grid">
+
+            </div>
+
+    </section>
+
+
+
+    <section class="size-guide-section" id="talles">
+
+        <div class="size-guide-container">
+
+            <h2>Guía de Talles - Versión Jugador</h2>
+
+            <p>Tené en cuenta que la indumentaria <strong>Versión Jugador (Player Version)</strong> posee un corte entallado y un ajuste atlético al cuerpo. Si preferís la prenda suelta o al cuerpo de forma estándar, te recomendamos encarecidamente solicitar <strong>un talle más</strong> del que usás habitualmente.</p>
+
+        </div>
+
+    </section>
+
+
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+
+        <div class="cart-header">
+
+            <h3>Tu Carrito</h3>
+
+            <button class="close-cart" id="close-cart-btn">&times;</button>
+
+        </div>
+
+        <div class="cart-items" id="cart-items">
+
+            </div>
+
+        <div class="cart-footer">
+
+            <div class="cart-total">
+
+                <span>Total:</span>
+
+                <span id="cart-total-price">$0 ARS</span>
+
+            </div>
+
+            <a href="#" class="btn-whatsapp" id="send-whatsapp-btn" target="_blank">Finalizar Pedido por WhatsApp</a>
+
+        </div>
+
+    </div>
+
+
+
+    <footer>
+
+        <p>&copy; 2026 Casaca Club - Indumentaria de Fútbol de Alta Calidad.</p>
+
+        <p>Aceptamos Mercado Pago, Transferencias e Imposiciones.</p>
+
+    </footer>
+
+
+
+    <script>
+
+        const products = [
+
+            { id: 1, category: 'camiseta', title: 'Camiseta Argentina Titular 2024/26', price: 50000, img: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600' },
+
+            { id: 2, category: 'short', title: 'Short Argentina Titular', price: 50000, img: 'https://images.unsplash.com/photo-1591123720164-de1348028a82?q=80&w=600' },
+
+            { id: 3, category: 'combo', title: 'Combo Argentina Titular (Camiseta + Short)', price: 95000, img: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=600' },
+
+            { id: 4, category: 'camiseta', title: 'Camiseta Real Madrid Local', price: 50000, img: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=600' },
+
+            { id: 5, category: 'short', title: 'Short Real Madrid Local', price: 50000, img: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?q=80&w=600' },
+
+            { id: 6, category: 'combo', title: 'Combo Real Madrid (Camiseta + Short)', price: 95000, img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600' }
+
+        ];
+
+
+
+        let cart = [];
+
+        const phoneWhatsapp = "5492364581163"; // Reemplazar con tu número real (incluyendo código de país)
+
+
+
+        const productGrid = document.getElementById('product-grid');
+
+        const cartSidebar = document.getElementById('cart-sidebar');
+
+        const overlay = document.getElementById('overlay');
+
+        const openCartBtn = document.getElementById('open-cart-btn');
+
+        const closeCartBtn = document.getElementById('close-cart-btn');
+
+        const cartCount = document.getElementById('cart-count');
+
+        const cartItemsContainer = document.getElementById('cart-items');
+
+        const cartTotalPrice = document.getElementById('cart-total-price');
+
+        const sendWhatsappBtn = document.getElementById('send-whatsapp-btn');
+
+
+
+        function renderProducts(filter = 'all') {
+
+            productGrid.innerHTML = '';
+
+            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+
+
+            filteredProducts.forEach(product => {
+
+                const card = document.createElement('div');
+
+                card.className = 'product-card';
+
+                card.innerHTML = `
+
+                    <span class="tag-player">Versión Jugador</span>
+
+                    <img src="${product.img}" alt="${product.title}">
+
+                    <div class="product-info">
+
+                        <h3 class="product-title">${product.title}</h3>
+
+                        <div class="product-price">$${product.price.toLocaleString('es-AR')} ARS</div>
+
+                        <div class="size-selector">
+
+                            <button class="size-btn selected" onclick="selectSize(this)">S</button>
+
+                            <button class="size-btn" onclick="selectSize(this)">M</button>
+
+                            <button class="size-btn" onclick="selectSize(this)">L</button>
+
+                            <button class="size-btn" onclick="selectSize(this)">XL</button>
+
+                            <button class="size-btn" onclick="selectSize(this)">XXL</button>
+
+                        </div>
+
+                        <button class="add-to-cart" onclick="addToCart(${product.id}, this)">Agregar al Carrito</button>
+
+                    </div>
+
+                `;
+
+                productGrid.appendChild(card);
+
+            });
+
+        }
+
+
+
+        function selectSize(btn) {
+
+            const parent = btn.parentElement;
+
+            parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+
+            btn.classList.add('selected');
+
+        }
+
+
+
+        function addToCart(productId, btnElement) {
+
+            const product = products.find(p => p.id === productId);
+
+            const cardInfo = btnElement.closest('.product-info');
+
+            const selectedSize = cardInfo.querySelector('.size-btn.selected').innerText;
+
+
+
+            cart.push({ ...product, selectedSize });
+
+            updateCartUI();
+
+            openCart();
+
+        }
+
+
+
+        function removeFromCart(index) {
+
+            cart.splice(index, 1);
+
+            updateCartUI();
+
+        }
+
+
+
+        function updateCartUI() {
+
+            cartCount.innerText = cart.length;
+
+            cartItemsContainer.innerHTML = '';
+
+            let total = 0;
+
+
+
+            cart.forEach((item, index) => {
+
+                total += item.price;
+
+                const itemEl = document.createElement('div');
+
+                itemEl.className = 'cart-item';
+
+                itemEl.innerHTML = `
+
+                    <div class="cart-item-details">
+
+                        <h4>${item.title}</h4>
+
+                        <p>Talle: <strong>${item.selectedSize}</strong></p>
+
+                        <p>$${item.price.toLocaleString('es-AR')} ARS</p>
+
+                    </div>
+
+                    <button class="remove-item" onclick="removeFromCart(${index})">Eliminar</button>
+
+                `;
+
+                cartItemsContainer.appendChild(itemEl);
+
+            });
+
+
+
+            cartTotalPrice.innerText = `$${total.toLocaleString('es-AR')} ARS`;
+
+            
+
+            // Build WhatsApp message
+
+            if (cart.length > 0) {
+
+                let msg = "¡Hola! Quisiera realizar un pedido en *Casaca Club*:%0A%0A";
+
+                cart.forEach((item, idx) => {
+
+                    msg += `${idx + 1}. *${item.title}* - Talle: ${item.selectedSize} - $${item.price.toLocaleString('es-AR')}%0A`;
+
+                });
+
+                msg += `%0A*Total:* $${total.toLocaleString('es-AR')} ARS`;
+
+                sendWhatsappBtn.href = `https://wa.me/${phoneWhatsapp}?text=${msg}`;
+
+            } else {
+
+                sendWhatsappBtn.href = "#";
+
+            }
+
+        }
+
+
+
+        // Filters
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+
+            btn.addEventListener('click', (e) => {
+
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+
+                e.target.classList.add('active');
+
+                renderProducts(e.target.dataset.filter);
+
+            });
+
+        });
+
+
+
+        // Cart Drawer Handlers
+
+        function openCart() {
+
+            cartSidebar.classList.add('open');
+
+            overlay.classList.add('active');
+
+        }
+
+
+
+        function closeCart() {
+
+            cartSidebar.classList.remove('open');
+
+            overlay.classList.remove('active');
+
+        }
+
+
+
+        openCartBtn.addEventListener('click', openCart);
+
+        closeCartBtn.addEventListener('click', closeCart);
+
+        overlay.addEventListener('click', closeCart);
+
+
+
+        // Init
+
+        renderProducts();
+
+    </script>
+
+</body>
+
+</html>
