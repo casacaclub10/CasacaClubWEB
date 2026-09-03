@@ -908,6 +908,41 @@ margin: 0 auto 20px auto;
 display: block;
 border: 3px solid var(--accent-brown);
 }
+/* Modal de Imagen Grande */
+.image-modal {
+display: none;
+position: fixed;
+z-index: 2000;
+padding-top: 50px;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);
+cursor: pointer;
+}
+
+.modal-content {
+margin: auto;
+display: block;
+max-width: 90%;
+max-height: 80vh;
+border-radius: 8px;
+object-fit: contain;
+}
+
+.close-modal {
+position: absolute;
+top: 15px;
+right: 25px;
+color: #fff;
+font-size: 35px;
+font-weight: bold;
+}
+
+.product-card img {
+cursor: pointer;
+}        
 </style>
 
 
@@ -1345,8 +1380,23 @@ border: 3px solid var(--accent-brown);
         // Init
 
         renderProducts();
+// Funciones para abrir y cerrar la imagen en grande
+function openImageModal(src) {
+const modal = document.getElementById('image-modal');
+const modalImg = document.getElementById('img-fullsize');
+modal.style.display = "block";
+modalImg.src = src;
+}
 
+function closeImageModal() {
+document.getElementById('image-modal').style.display = "none";
+}
     </script>
+<!-- Modal para agrandar imágenes -->
+<div id="image-modal" class="image-modal" onclick="closeImageModal()">
+<span class="close-modal">&times;</span>
+<img class="modal-content" id="img-fullsize">
+</div>
 
 </body>
 
