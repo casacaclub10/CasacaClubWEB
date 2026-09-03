@@ -864,12 +864,14 @@
 
 
 
-        @media (max-width: 768px) {
+        /* ESTILOS PARA CELULARES (Se activa solo en pantallas chicas) */
+@media (max-width: 768px) {
 header { padding: 1rem; }
 nav { display: none; }
-.hero h1 { font-size: 2.2rem; }
+.hero h1 { font-size: 1.8rem; }
 .cart-sidebar { width: 100%; }
 
+/* Grilla de 2 columnas en celulares */
 .product-grid {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
@@ -894,14 +896,16 @@ object-fit: cover;
 padding: 4px 6px;
 font-size: 0.75rem;
 }
+}
 
-
+/* ESTILO DEL LOGO (Aplica TANTO a Computadora COMO a Celular) */
 .hero-logo {
-width: 120px;
-height: 120px;
+width: 120px !important;
+height: 120px !important;
 border-radius: 50%;
 object-fit: cover;
-margin-bottom: 20px;
+margin: 0 auto 20px auto;
+display: block;
 border: 3px solid var(--accent-brown);
 }
 </style>
