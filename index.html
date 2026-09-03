@@ -864,32 +864,11 @@
 
 
 
-        @media (max-width: 768px) {
-.product-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr); /* Hace 2 columnas iguales */
-gap: 10px; /* Espacio reducido entre tarjetas */
-padding: 10px;
-}
-
-.product-card {
-padding: 8px; /* Ajusta el contenido interno */
-}
-
-.product-card h3 {
-font-size: 0.85rem; /* Achica un poco el título */
-}
-
-.product-card img {
-height: 160px; /* Ajusta el tamaño de las fotos */
-object-fit: cover;
-}
-
-.size-selector button {
-padding: 4px 6px; /* Achica los botones de talles */
-font-size: 0.75rem;
-}
-}
+        @media (max-width: 768px) (
+header (padding: 1rem;)
+nav { display: none; }
+•hero h1 { font-size: 2.2rem; }
+• cart-sidebar { width: 100%; }
 
         }
 .hero-logo {
