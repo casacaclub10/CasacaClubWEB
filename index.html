@@ -1120,20 +1120,46 @@ cursor: pointer;
     <script>
 
         const products = [
-
-            { id: 1, category: 'camiseta', title: 'Camiseta Argentina Titular 2024/26', price: 50000, img: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600' },
-
-            { id: 2, category: 'short', title: 'Short Argentina Titular', price: 50000, img: 'https://images.unsplash.com/photo-1591123720164-de1348028a82?q=80&w=600' },
-
-            { id: 3, category: 'combo', title: 'Combo Argentina Titular (Camiseta + Short)', price: 95000, img: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=600' },
-
-            { id: 4, category: 'camiseta', title: 'Camiseta Real Madrid Local', price: 50000, img: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=600' },
-
-            { id: 5, category: 'short', title: 'Short Real Madrid Local', price: 50000, img: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?q=80&w=600' },
-
-            { id: 6, category: 'combo', title: 'Combo Real Madrid (Camiseta + Short)', price: 95000, img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600' }
-
-        ];
+    { id: 1, category: 'camiseta', title: 'Producto 1', price: 50000, img: 'foto1.jpg' },
+    { id: 2, category: 'camiseta', title: 'Producto 2', price: 50000, img: 'foto2.jpg' },
+    { id: 3, category: 'camiseta', title: 'Producto 3', price: 50000, img: 'foto3.jpg' },
+    { id: 4, category: 'camiseta', title: 'Producto 4', price: 50000, img: 'foto4.jpg' },
+    { id: 5, category: 'camiseta', title: 'Producto 5', price: 50000, img: 'foto5.jpg' },
+    { id: 6, category: 'camiseta', title: 'Producto 6', price: 50000, img: 'foto6.jpg' },
+    { id: 7, category: 'camiseta', title: 'Producto 7', price: 50000, img: 'foto7.jpg' },
+    { id: 8, category: 'camiseta', title: 'Producto 8', price: 50000, img: 'foto8.jpg' },
+    { id: 9, category: 'camiseta', title: 'Producto 9', price: 50000, img: 'foto9.jpg' },
+    { id: 10, category: 'camiseta', title: 'Producto 10', price: 50000, img: 'foto10.jpg' },
+    { id: 11, category: 'camiseta', title: 'Producto 11', price: 50000, img: 'foto11.jpg' },
+    { id: 12, category: 'camiseta', title: 'Producto 12', price: 50000, img: 'foto12.jpg' },
+    { id: 13, category: 'camiseta', title: 'Producto 13', price: 50000, img: 'foto13.jpg' },
+    { id: 14, category: 'camiseta', title: 'Producto 14', price: 50000, img: 'foto14.jpg' },
+    { id: 15, category: 'camiseta', title: 'Producto 15', price: 50000, img: 'foto15.jpg' },
+    { id: 16, category: 'camiseta', title: 'Producto 16', price: 50000, img: 'foto16.jpg' },
+    { id: 17, category: 'camiseta', title: 'Producto 17', price: 50000, img: 'foto17.jpg' },
+    { id: 18, category: 'camiseta', title: 'Producto 18', price: 50000, img: 'foto18.jpg' },
+    { id: 19, category: 'camiseta', title: 'Producto 19', price: 50000, img: 'foto19.jpg' },
+    { id: 20, category: 'camiseta', title: 'Producto 20', price: 50000, img: 'foto20.jpg' },
+    { id: 21, category: 'camiseta', title: 'Producto 21', price: 50000, img: 'foto21.jpg' },
+    { id: 22, category: 'camiseta', title: 'Producto 22', price: 50000, img: 'foto22.jpg' },
+    { id: 23, category: 'camiseta', title: 'Producto 23', price: 50000, img: 'foto23.jpg' },
+    { id: 24, category: 'camiseta', title: 'Producto 24', price: 50000, img: 'foto24.jpg' },
+    { id: 25, category: 'camiseta', title: 'Producto 25', price: 50000, img: 'foto25.jpg' },
+    { id: 26, category: 'camiseta', title: 'Producto 26', price: 50000, img: 'foto26.jpg' },
+    { id: 27, category: 'camiseta', title: 'Producto 27', price: 50000, img: 'foto27.jpg' },
+    { id: 28, category: 'camiseta', title: 'Producto 28', price: 50000, img: 'foto28.jpg' },
+    { id: 29, category: 'camiseta', title: 'Producto 29', price: 50000, img: 'foto29.jpg' },
+    { id: 30, category: 'camiseta', title: 'Producto 30', price: 50000, img: 'foto30.jpg' },
+    { id: 31, category: 'short', title: 'Producto 31', price: 30000, img: 'foto31.jpg' },
+    { id: 32, category: 'short', title: 'Producto 32', price: 30000, img: 'foto32.jpg' },
+    { id: 33, category: 'short', title: 'Producto 33', price: 30000, img: 'foto33.jpg' },
+    { id: 34, category: 'short', title: 'Producto 34', price: 30000, img: 'foto34.jpg' },
+    { id: 35, category: 'short', title: 'Producto 35', price: 30000, img: 'foto35.jpg' },
+    { id: 36, category: 'combo', title: 'Producto 36', price: 70000, img: 'foto36.jpg' },
+    { id: 37, category: 'combo', title: 'Producto 37', price: 70000, img: 'foto37.jpg' },
+    { id: 38, category: 'combo', title: 'Producto 38', price: 70000, img: 'foto38.jpg' },
+    { id: 39, category: 'combo', title: 'Producto 39', price: 70000, img: 'foto39.jpg' }
+];
 
 
 
