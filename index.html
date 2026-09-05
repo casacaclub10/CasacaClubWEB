@@ -938,7 +938,28 @@ font-weight: bold;
 
 .product-card img {
 cursor: pointer;
-}        
+} 
+.product-gallery {
+display: flex;
+overflow-x: auto;
+scroll-snap-type: x mandatory;
+gap: 5px;
+border-radius: 6px;
+-webkit-overflow-scrolling: touch;
+}
+
+.product-gallery::-webkit-scrollbar {
+display: none;
+}
+
+.product-gallery img {
+flex: 0 0 100%;
+scroll-snap-align: start;
+width: 100%;
+height: 180px;
+object-fit: cover;
+border-radius: 6px;
+}
 </style>
 
 
@@ -1116,45 +1137,45 @@ cursor: pointer;
     <script>
 
         const products = [
-    { id: 1, category: 'camiseta', title: 'Ajax titular', price: 50000, image: 'ajaxtit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 2, category: 'camiseta', title: 'Argentina titular', price: 45000, image: 'argentinatit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 3, category: 'camiseta', title: 'Bayern Munich titular', price: 50000, image: 'bayerntit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 4, category: 'camiseta', title: 'Bélgica titular', price: 45000, image: 'belgicatit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 5, category: 'camiseta', title: 'Boca alternativa', price: 50000, image: 'bocasup.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 6, category: 'camiseta', title: 'Botafogo alternativa', price: 50000, image: 'botafogosup.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 7, category: 'camiseta', title: 'Brasil titular', price: 50000, image: 'brasiltit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 8, category: 'camiseta', title: 'Brasil titular FAN', price: 45000, image: 'brasiltitfan.jpeg', badge: 'VERSIÓN FAN' },
-    { id: 9, category: 'camiseta', title: 'Celtic titular', price: 50000, image: 'celtictit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 10, category: 'camiseta', title: 'Chelsea titular', price: 50000, image: 'chelseatit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 11, category: 'camiseta', title: 'Colombia alternativa', price: 45000, image: 'colombiasup.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 12, category: 'camiseta', title: 'Colombia titular', price: 45000, image: 'colombiatit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 13, category: 'camiseta', title: 'Corinthians alternativa', price: 50000, image: 'corinthianssup.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 14, category: 'camiseta', title: 'Corinthians titular', price: 50000, image: 'corinthianstit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 15, category: 'camiseta', title: 'Croacia titular', price: 55000, image: 'croaciatit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 16, category: 'camiseta', title: 'Flamengo alternativa FAN', price: 45000, image: 'flamengosupfan.jpeg', badge: 'VERSIÓN FAN' },
-    { id: 17, category: 'camiseta', title: 'Holanda alternativa', price: 45000, image: 'holandasup.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 18, category: 'camiseta', title: 'Independiente titular', price: 35000, image: 'independientetit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 19, category: 'camiseta', title: 'Inter Milán titular', price: 50000, image: 'intermilantit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 20, category: 'camiseta', title: 'Liverpool titular', price: 50000, image: 'liverpooltit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 21, category: 'camiseta', title: 'Manchester City titular', price: 50000, image: 'mancitytit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 22, category: 'camiseta', title: 'Manchester United titular', price: 50000, image: 'manutdtit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 23, category: 'camiseta', title: 'AC Milan titular', price: 50000, image: 'milantit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 24, category: 'camiseta', title: 'Noruega alternativa - Haaland (9)', price: 55000, image: 'noruegasup(9).jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 25, category: 'camiseta', title: 'Noruega titular', price: 55000, image: 'noruegatit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 26, category: 'camiseta', title: 'Portugal titular', price: 45000, image: 'portugaltit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 27, category: 'camiseta', title: 'PSG titular', price: 50000, image: 'psgtit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 28, category: 'camiseta', title: 'Real Madrid alternativa', price: 50000, image: 'realmadridsup.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 29, category: 'camiseta', title: 'Real Madrid titular', price: 50000, image: 'realmadridtit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 30, category: 'camiseta', title: 'Sao Pablo titular', price: 50000, image: 'saopablotit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 31, category: 'short', title: 'Short Argentina azul (9)', price: 50000, image: 'shortargentinaazul(9).jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 32, category: 'short', title: 'Short Argentina blanco (9)', price: 50000, image: 'shortargentinablanco(9).jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 33, category: 'short', title: 'Short Chelsea blanco (10)', price: 50000, image: 'shortchelseablanco(10).jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 34, category: 'short', title: 'Short Chelsea verde (49)', price: 50000, image: 'shortchelseaverde(49).jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 35, category: 'short', title: 'Short Manchester United negro', price: 50000, image: 'shortmanutdnegro.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 36, category: 'short', title: 'Short PSG (10)', price: 50000, image: 'shortpsg(10).jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 37, category: 'camiseta', title: 'Uruguay titular', price: 55000, image: 'uruguaytit.jpeg', badge: 'VERSIÓN JUGADOR' },
-    { id: 38, category: 'camiseta', title: 'Vasco da Gama titular FAN', price: 45000, image: 'vascodagamatitfan.jpeg', badge: 'VERSIÓN FAN' },
-    { id: 39, category: 'camiseta', title: 'Argentina alternativa - Messi (10)', price: 50000, image: 'argsup.jpeg', badge: 'VERSIÓN JUGADOR' }        
+    { id: 1, category: 'camiseta', title: 'Ajax titular', price: 50000, images: ['ajaxtit.jpeg', 'ajaxATRAS.jpeg', 'escudoajax.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 2, category: 'camiseta', title: 'Argentina titular', price: 45000, images: ['argentinatit.jpeg', 'escudoargtit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 3, category: 'camiseta', title: 'Bayern Munich titular', price: 50000, images: ['bayerntit.jpeg', 'escudobayern.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 4, category: 'camiseta', title: 'Bélgica titular', price: 45000, images: ['belgicatit.jpeg', 'belgicaATRAS.jpeg', 'escudobelgica.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 5, category: 'camiseta', title: 'Boca alternativa', price: 50000, images: ['bocasup.jpeg', 'escudoboca.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 6, category: 'camiseta', title: 'Botafogo alternativa', price: 50000, images: ['botafogosup.jpeg', 'escudobotafogo.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 7, category: 'camiseta', title: 'Brasil titular', price: 50000, images: ['brasiltit.jpeg', 'escudobrasil.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 8, category: 'camiseta', title: 'Brasil titular FAN', price: 45000, images: ['brasiltitfan.jpeg', 'escudobrasilfan.jpeg'], badge: 'VERSIÓN FAN' },
+    { id: 9, category: 'camiseta', title: 'Celtic titular', price: 50000, images: ['celtictit.jpeg', 'celticATRAS.jpeg', 'escudoceltic.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 10, category: 'camiseta', title: 'Chelsea titular', price: 50000, images: ['chelseatit.jpeg', 'chelseaATRAS.jpeg', 'escudochelsea.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 11, category: 'camiseta', title: 'Colombia alternativa', price: 45000, images: ['colombiasup.jpeg', 'colombiasupATRAS.jpeg', 'escudocolombiasup.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 12, category: 'camiseta', title: 'Colombia titular', price: 45000, images: ['colombiatit.jpeg', 'colombiatitATRAS.jpeg', 'escudocolombiatit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 13, category: 'camiseta', title: 'Corinthians alternativa', price: 50000, images: ['corinthianssup.jpeg', 'escudocorinthiansnaranja.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 14, category: 'camiseta', title: 'Corinthians titular', price: 50000, images: ['corinthianstit.jpeg', 'corinthiansATRAS.jpeg', 'escudocorinthians.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 15, category: 'camiseta', title: 'Croacia titular', price: 55000, images: ['croaciatit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 16, category: 'camiseta', title: 'Flamengo alternativa FAN', price: 45000, images: ['flamengosupfan.jpeg'], badge: 'VERSIÓN FAN' },
+    { id: 17, category: 'camiseta', title: 'Holanda alternativa', price: 45000, images: ['holandasup.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 18, category: 'camiseta', title: 'Independiente titular', price: 35000, images: ['independientetit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 19, category: 'camiseta', title: 'Inter Milán titular', price: 50000, images: ['intermilantit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 20, category: 'camiseta', title: 'Liverpool titular', price: 50000, images: ['liverpooltit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 21, category: 'camiseta', title: 'Manchester City titular', price: 50000, images: ['mancitytit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 22, category: 'camiseta', title: 'Manchester United titular', price: 50000, images: ['manutdtit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 23, category: 'camiseta', title: 'AC Milan titular', price: 50000, images: ['milantit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 24, category: 'camiseta', title: 'Noruega alternativa - Haaland (9)', price: 55000, images: ['noruegasup(9).jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 25, category: 'camiseta', title: 'Noruega titular', price: 55000, images: ['noruegatit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 26, category: 'camiseta', title: 'Portugal titular', price: 45000, images: ['portugaltit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 27, category: 'camiseta', title: 'PSG titular', price: 50000, images: ['psgtit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 28, category: 'camiseta', title: 'Real Madrid alternativa', price: 50000, images: ['realmadridsup.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 29, category: 'camiseta', title: 'Real Madrid titular', price: 50000, images: ['realmadridtit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 30, category: 'camiseta', title: 'Sao Pablo titular', price: 50000, images: ['saopablotit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 31, category: 'short', title: 'Short Argentina azul (9)', price: 50000, images: ['shortargentinaazul(9).jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 32, category: 'short', title: 'Short Argentina blanco (9)', price: 50000, images: ['shortargentinablanco(9).jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 33, category: 'short', title: 'Short Chelsea blanco (10)', price: 50000, images: ['shortchelseablanco(10).jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 34, category: 'short', title: 'Short Chelsea verde (49)', price: 50000, images: ['shortchelseaverde(49).jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 35, category: 'short', title: 'Short Manchester United negro', price: 50000, images: ['shortmanutdnegro.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 36, category: 'short', title: 'Short PSG (10)', price: 50000, images: ['shortpsg(10).jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 37, category: 'camiseta', title: 'Uruguay titular', price: 55000, images: ['uruguaytit.jpeg'], badge: 'VERSIÓN JUGADOR' },
+    { id: 38, category: 'camiseta', title: 'Vasco da Gama titular FAN', price: 45000, images: ['vascodagamatitfan.jpeg'], badge: 'VERSIÓN FAN' },
+    { id: 39, category: 'camiseta', title: 'Argentina alternativa - Messi (10)', price: 50000, images: ['argsup.jpeg'], badge: 'VERSIÓN JUGADOR' }        
 ];
 
 
@@ -1204,7 +1225,12 @@ cursor: pointer;
                     <span class="tag-player">${(product.badge || 'VERSIÓN JUGADOR').toUpperCase()}</span>
 
 
-                   <img src="${product.image}" alt="${product.name}" onclick="openImageModal(this.src)">
+                   <div class="product-gallery">
+${(product.images || [product.image]).map(img => `
+<img src="${img}" alt="${product.title}" onclick="openImageModal(this.src)">
+`).join('')}
+</div>
+
 
 
                     <div class="product-info">
