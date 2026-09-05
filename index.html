@@ -435,30 +435,18 @@
 
 
         .tag-player {
-
-            position: absolute;
-
-            top: 10px;
-
-            left: 10px;
-
-            background-color: var(--accent-brown);
-
-            color: white;
-
-            font-size: 0.7rem;
-
-            font-weight: bold;
-
-            padding: 3px 8px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1px;
-
-            z-index: 2;
-
-        }
+display: inline-block;
+background-color: #d4a373; /* Tono marrón/dorado del diseño original */
+color: #111111; /* Texto oscuro dentro del recuadro */
+font-size: 0.7rem;
+font-weight: 700;
+text-transform: uppercase;
+padding: 4px 8px;
+border-radius: 4px;
+margin-bottom: 8px;
+text-align: center;
+width: fit-content;
+}
 
 
 
@@ -1213,7 +1201,7 @@ cursor: pointer;
 
                 card.innerHTML = `
 
-                    <span class="badge">${product.badge || 'VERSIÓN JUGADOR'}</span>
+                    <span class="tag-player">${(product.badge || 'VERSIÓN JUGADOR').toUpperCase()}</span>
 
 
                    <img src="${product.image}" alt="${product.name}" onclick="openImageModal(this.src)">
