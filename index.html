@@ -961,6 +961,44 @@ height: 180px;
 object-fit: cover;
 border-radius: 6px;
 }
+.product-gallery-wrapper {
+position: relative;
+width: 100%;
+}
+
+.gallery-arrow {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(0, 0, 0, 0.7);
+color: #fff;
+border: none;
+font-size: 16px;
+padding: 8px 12px;
+cursor: pointer;
+border-radius: 50%;
+z-index: 10;
+}
+
+.gallery-arrow.prev { left: 5px; }
+.gallery-arrow.next { right: 5px; }
+
+.modal-arrow {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(0, 0, 0, 0.8);
+color: #fff;
+border: none;
+font-size: 24px;
+padding: 12px 16px;
+cursor: pointer;
+border-radius: 50%;
+z-index: 2001;
+}
+
+.modal-arrow.prev { left: 20px; }
+.modal-arrow.next { right: 20px; }        
 </style>
 
 
@@ -1431,23 +1469,77 @@ ${(product.images || [product.image]).map(img => `
         // Init
 
         renderProducts();
-// Funciones para abrir y cerrar la imagen en grande
-function openImageModal(src) {
+// Funciones para la galería y el modal con flechas y deslizado
+let currentModalImages = [];
+let currentModalIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function scrollGallery(btn, direction) {
+const gallery = btn.parentElement.querySelector('.product-gallery');
+if (gallery) {
+gallery.scrollBy({ left: direction * gallery.clientWidth, behavior: 'smooth' });
+}
+}
+
+function openImageModal(src, imagesArray = []) {
 const modal = document.getElementById('image-modal');
+currentModalImages = Array.isArray(imagesArray) && imagesArray.length > 0 ? imagesArray : [src];
+currentModalIndex = currentModalImages.indexOf(src);
+if (currentModalIndex === -1) currentModalIndex = 0;
+
+updateModalImage();
+modal.style.display = 'flex';
+}
+
+function updateModalImage() {
 const modalImg = document.getElementById('img-fullsize');
-modal.style.display = "block";
-modalImg.src = src;
+if (modalImg && currentModalImages[currentModalIndex]) {
+modalImg.src = currentModalImages[currentModalIndex];
+}
+}
+
+function nextModalImage() {
+if (currentModalImages.length <= 1) return;
+currentModalIndex = (currentModalIndex + 1) % currentModalImages.length;
+updateModalImage();
+}
+
+function prevModalImage() {
+if (currentModalImages.length <= 1) return;
+currentModalIndex = (currentModalIndex - 1 + currentModalImages.length) % currentModalImages.length;
+updateModalImage();
 }
 
 function closeImageModal() {
-document.getElementById('image-modal').style.display = "none";
+document.getElementById('image-modal').style.display = 'none';
 }
+
+// Control táctil para deslizar en el modal en celulares
+document.addEventListener('DOMContentLoaded', () => {
+const modalImg = document.getElementById('img-fullsize');
+if (modalImg) {
+modalImg.addEventListener('touchstart', e => {
+touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+modalImg.addEventListener('touchend', e => {
+touchEndX = e.changedTouches[0].screenX;
+if (touchEndX < touchStartX - 40) nextModalImage();
+if (touchEndX > touchStartX + 40) prevModalImage();
+}, { passive: true });
+}
+});
+        
     </script>
 <!-- Modal para agrandar imágenes -->
 <div id="image-modal" class="image-modal" onclick="closeImageModal()">
 <span class="close-modal">&times;</span>
-<img class="modal-content" id="img-fullsize">
+<button class="modal-arrow prev" onclick="event.stopPropagation(); prevModalImage()">❮</button>
+<img class="modal-content" id="img-fullsize" onclick="event.stopPropagation()">
+<button class="modal-arrow next" onclick="event.stopPropagation(); nextModalImage()">❯</button>
 </div>
+
 
 </body>
 
