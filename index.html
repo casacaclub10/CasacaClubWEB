@@ -1264,10 +1264,14 @@ z-index: 2001;
                     <span class="tag-player">${(product.badge || 'VERSIÓN JUGADOR').toUpperCase()}</span>
 
 
-                   <div class="product-gallery">
+                   <div class="product-gallery-wrapper">
+<button type="button" class="gallery-arrow prev" onclick="scrollGallery(this, -1)">❮</button>
+<div class="product-gallery">
 ${(product.images || [product.image]).map(img => `
-<img src="${img}" alt="${product.title}" onclick="openImageModal(this.src)">
+<img src="${img}" alt="${product.title}" onclick="openImageModal('${img}', ${JSON.stringify(product.images || [product.image]).replace(/"/g, '&quot;')})">
 `).join('')}
+</div>
+<button type="button" class="gallery-arrow next" onclick="scrollGallery(this, 1)">❯</button>
 </div>
 
 
@@ -1476,9 +1480,14 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 function scrollGallery(btn, direction) {
-const gallery = btn.parentElement.querySelector('.product-gallery');
+if (window.event) window.event.stopPropagation();
+const wrapper = btn.closest('.product-gallery-wrapper');
+if (!wrapper) return;
+
+const gallery = wrapper.querySelector('.product-gallery');
 if (gallery) {
-gallery.scrollBy({ left: direction * gallery.clientWidth, behavior: 'smooth' });
+const scrollAmount = gallery.clientWidth;
+gallery.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 }
 }
 
