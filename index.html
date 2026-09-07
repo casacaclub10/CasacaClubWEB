@@ -1151,7 +1151,17 @@ transition: background 0.2s ease;
 .btn-go-cart:hover {
 background: #20ba5a;
 }
-        
+/* Estilo para talles sin stock / deshabilitados */
+.size-btn.disabled,
+.size-btn:disabled {
+background: rgba(255, 255, 255, 0.05) !important;
+color: #666666 !important;
+border-color: rgba(255, 255, 255, 0.1) !important;
+text-decoration: line-through;
+cursor: not-allowed !important;
+opacity: 0.5;
+pointer-events: none;
+}        
 </style>
 
 
@@ -1437,7 +1447,12 @@ ${(product.images || [product.image]).map(img => `
 
                         <div class="size-selector">
 
-                           ${(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((s, i) => `<button class="size-btn ${i === 0 ? 'selected' : ''}" onclick="selectSize(this)">${s}</button>`).join('')}
+                           ${['S', 'M', 'L', 'XL', 'XXL'].map(s => {
+const isAvailable = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).includes(s);
+const availableSizes = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']);
+const isFirstAvailable = availableSizes[0] === s;
+return `<button class="size-btn ${isAvailable ? (isFirstAvailable ? 'selected' : '') : 'disabled'}" ${isAvailable ? `onclick="selectSize(this)"` : 'disabled'}>${s}</button>`;
+}).join('')}
 
 
                         </div>
@@ -1457,14 +1472,11 @@ ${(product.images || [product.image]).map(img => `
 
 
         function selectSize(btn) {
-
-            const parent = btn.parentElement;
-
-            parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-
-            btn.classList.add('selected');
-
-        }
+if (btn.classList.contains('disabled') || btn.disabled) return;
+const parent = btn.parentElement;
+parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+btn.classList.add('selected');
+}
 
 
 
