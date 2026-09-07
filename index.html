@@ -1081,6 +1081,77 @@ width: 28px;
 height: 28px;
 }
 }        
+/* Modal de confirmación al agregar producto */
+.add-cart-modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.7);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 3000;
+backdrop-filter: blur(4px);
+}
+
+.add-cart-content {
+background: #1e1e1e;
+border: 1px solid rgba(255, 255, 255, 0.15);
+padding: 30px 25px;
+border-radius: 12px;
+text-align: center;
+max-width: 400px;
+width: 90%;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.add-cart-content h3 {
+color: #fff;
+font-size: 18px;
+margin-bottom: 25px;
+font-weight: 600;
+}
+
+.add-cart-buttons {
+display: flex;
+gap: 12px;
+justify-content: center;
+}
+
+.btn-continue {
+background: #ffffff;
+color: #111111;
+border: none;
+padding: 12px 18px;
+border-radius: 6px;
+font-weight: bold;
+cursor: pointer;
+flex: 1;
+transition: background 0.2s ease;
+}
+
+.btn-continue:hover {
+background: #e0e0e0;
+}
+
+.btn-go-cart {
+background: #25d366;
+color: #ffffff;
+border: none;
+padding: 12px 18px;
+border-radius: 6px;
+font-weight: bold;
+cursor: pointer;
+flex: 1;
+transition: background 0.2s ease;
+}
+
+.btn-go-cart:hover {
+background: #20ba5a;
+}
+        
 </style>
 
 
@@ -1418,7 +1489,22 @@ ${(product.images || [product.image]).map(img => `
 
             updateCartUI();
 
-            openCart();
+           const addToCartModal = document.getElementById('add-to-cart-modal');
+if (addToCartModal) {
+addToCartModal.style.display = 'flex';
+}
+
+function closeAddToCartModal() {
+const modal = document.getElementById('add-to-cart-modal');
+if (modal) {
+modal.style.display = 'none';
+}
+}
+
+function goToCartFromModal() {
+closeAddToCartModal();
+openCart();
+}            
 
         }
 
@@ -1630,7 +1716,16 @@ if (touchEndX > touchStartX + 40) prevModalImage();
 <img class="modal-content" id="img-fullsize" onclick="event.stopPropagation()">
 <button class="modal-arrow next" onclick="event.stopPropagation(); nextModalImage()">❯</button>
 </div>
-
+<!-- Cartel de confirmación al agregar al carrito -->
+<div id="add-to-cart-modal" class="add-cart-modal" style="display: none;">
+<div class="add-cart-content">
+<h3>¡Agregado con éxito al carrito!</h3>
+<div class="add-cart-buttons">
+<button class="btn-continue" onclick="closeAddToCartModal()">Continuar viendo</button>
+<button class="btn-go-cart" onclick="goToCartFromModal()">Ir al carrito</button>
+</div>
+</div>
+</div>
 <!-- Botón flotante de WhatsApp -->
 <a href="https://wa.me/5492364581163?text=Hola,%20quiero%20hacer%20una%20consulta:"
 class="whatsapp-float"
