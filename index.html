@@ -1506,28 +1506,12 @@ catalog.scrollIntoView({ behavior: 'smooth' });
 }
 
 function goToCartFromModal() {
-const modal = document.getElementById('add-to-cart-modal');
-if (modal) {
-modal.style.display = 'none';
-}
-
+closeAddToCartModal();
 if (typeof openCart === 'function') {
 openCart();
-} else {
-const cartSection = document.getElementById('carrito') || document.getElementById('cart-sidebar');
-if (cartSection) {
-cartSection.classList.add('active');
-cartSection.style.display = 'block';
-}
 }
 }
 
-function goToCartFromModal() {
-closeAddToCartModal();
-openCart();
-}            
-
-        }
 
 
 
