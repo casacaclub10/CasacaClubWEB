@@ -1037,6 +1037,49 @@ border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .gallery-arrow.prev { left: 4px; }
 .gallery-arrow.next { right: 4px; }
+}    
+/* Botón Flotante de WhatsApp */
+.whatsapp-float {
+position: fixed;
+bottom: 25px;
+right: 25px;
+width: 58px;
+height: 58px;
+background-color: #25d366;
+color: #fff;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+z-index: 1000;
+transition: all 0.3s ease;
+text-decoration: none;
+}
+
+.whatsapp-float:hover {
+background-color: #20ba5a;
+transform: scale(1.1);
+box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+.whatsapp-icon {
+width: 32px;
+height: 32px;
+}
+
+@media (max-width: 768px) {
+.whatsapp-float {
+bottom: 18px;
+right: 18px;
+width: 50px;
+height: 50px;
+}
+
+.whatsapp-icon {
+width: 28px;
+height: 28px;
+}
 }        
 </style>
 
@@ -1588,7 +1631,16 @@ if (touchEndX > touchStartX + 40) prevModalImage();
 <button class="modal-arrow next" onclick="event.stopPropagation(); nextModalImage()">❯</button>
 </div>
 
-
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/5492364581163?text=Hola,%20quiero%20hacer%20una%20consulta:"
+class="whatsapp-float"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Contactar por WhatsApp">
+<svg viewBox="0 0 32 32" class="whatsapp-icon">
+<path fill="currentColor" d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.262 8.26 8.451-2.216c2.37 1.296 5.038 1.98 7.674 1.98 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.387c-2.452 0-4.852-0.655-6.954-1.901l-0.499-0.297-5.166 1.354 1.38-5.041-0.328-0.521c-1.371-2.18-2.096-4.7-2.096-7.272 0-7.545 6.138-13.684 13.684-13.684s13.684 6.139 13.684 13.684c0 7.546-6.138 13.684-13.684 13.684zM22.583 19.389c-0.361-0.181-2.137-1.055-2.468-1.176-0.332-0.121-0.573-0.181-0.814 0.181s-0.934 1.176-1.146 1.417c-0.211 0.241-0.422 0.271-0.783 0.09-0.361-0.181-1.526-0.562-2.907-1.794-1.075-0.958-1.802-2.141-2.013-2.502s-0.022-0.556 0.158-0.736c0.162-0.162 0.361-0.422 0.542-0.633s0.241-0.361 0.361-0.602c0.121-0.241 0.06-0.452-0.030-0.633s-0.814-1.958-1.115-2.681c-0.293-0.704-0.591-0.609-0.814-0.62-0.211-0.010-0.452-0.010-0.693-0.010s-0.633 0.090-0.964 0.452c-0.332 0.361-1.265 1.235-1.265 3.012s1.295 3.494 1.476 3.735c0.181 0.241 2.548 3.892 6.174 5.46 0.863 0.373 1.537 0.596 2.062 0.763 0.867 0.275 1.656 0.236 2.28 0.143 0.696-0.104 2.137-0.873 2.438-1.717s0.301-1.566 0.211-1.717c-0.090-0.151-0.332-0.241-0.693-0.422z"/>
+</svg>
+</a>
 </body>
 
 </html>
