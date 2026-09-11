@@ -881,8 +881,9 @@ font-size: 0.85rem;
 }
 
 .product-card img {
-height: 220px !important;
-object-fit: cover !important; /* Mantiene la imagen grande y completa como antes */
+height: 180px !important; /* Baja de 220px a 180px para recortar alto */
+object-fit: cover !important;
+object-position: center !important; /* Enfoca la camiseta y corta el margen blanco sobrante */
 }
 
 .product-info {
