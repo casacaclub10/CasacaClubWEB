@@ -434,7 +434,11 @@
 
 
 
-        .tag-player {
+ .tag-player {
+position: absolute;
+top: 10px;
+left: 10px;
+z-index: 10;
 display: inline-block;
 background-color: #d4a373; /* Tono marrón/dorado del diseño original */
 color: #111111; /* Texto oscuro dentro del recuadro */
@@ -443,9 +447,9 @@ font-weight: 700;
 text-transform: uppercase;
 padding: 4px 8px;
 border-radius: 4px;
-margin-bottom: 8px;
 text-align: center;
 width: fit-content;
+pointer-events: none;
 }
 
 
@@ -1430,10 +1434,11 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
 
                 card.innerHTML = `
 
-                    <span class="tag-player">${(product.badge || 'VERSIÓN JUGADOR').toUpperCase()}</span>
-
+                    
 
                    <div class="product-gallery-wrapper">
+                   <span class="tag-player">${(product.badge || 'VERSIÓN JUGADOR').toUpperCase()}</span>
+
 <button type="button" class="gallery-arrow prev" onclick="scrollGallery(this, -1)">❮</button>
 <div class="product-gallery">
 ${(product.images || [product.image]).map(img => `
