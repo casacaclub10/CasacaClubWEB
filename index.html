@@ -881,42 +881,33 @@ font-size: 0.85rem;
 }
 
 .product-card img {
-height: 140px !important;
-object-fit: contain !important;
+height: 220px !important;
+object-fit: cover !important; /* Mantiene la imagen grande y completa como antes */
 }
 
 .product-info {
-padding: 0.4rem !important;
+padding: 0.4rem 0.5rem !important; /* Reduce los espacios vacíos arriba y abajo del texto */
 }
 
 .product-info h3 {
-margin-bottom: 2px !important;
+font-size: 0.85rem !important;
+margin: 2px 0 !important; /* Pega el título al precio */
+line-height: 1.1 !important;
 }
 
-.product-info .price {
-font-size: 0.85rem !important;
-margin-bottom: 6px !important;
+.product-info .price, .product-card .price {
+font-size: 0.8rem !important; /* Precio más chico y discreto */
+margin: 2px 0 6px 0 !important; /* Elimina la separación sobrante */
 }
 
 .size-selector {
-display: flex;
-gap: 2px;
-justify-content: center;
-flex-wrap: nowrap;
 margin-bottom: 6px !important;
 }
 
-.size-btn {
-padding: 3px 2px !important;
-font-size: 9px !important;
-min-width: 20px !important;
+.add-to-cart-btn {
+margin-top: 2px !important;
 }
 
-.add-to-cart-btn {
-padding: 6px 8px !important;
-font-size: 0.7rem !important;
-margin-top: 4px !important;
-}    
 }
 
 /* ESTILO DEL LOGO (Aplica TANTO a Computadora COMO a Celular) */
