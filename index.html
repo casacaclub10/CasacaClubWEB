@@ -895,13 +895,38 @@ margin: 2px 0 !important; /* Pega el título al precio */
 line-height: 1.1 !important;
 }
 
+/* Precio con ARS al lado en la misma línea */
 .product-info .price, .product-card .price {
-font-size: 0.8rem !important; /* Precio más chico y discreto */
-margin: 2px 0 6px 0 !important; /* Elimina la separación sobrante */
+font-size: 0.9rem !important;
+font-weight: bold !important;
+margin: 2px 0 6px 0 !important;
+display: flex !important;
+align-items: baseline !important;
+justify-content: center !important;
+gap: 4px !important;
 }
 
+/* Formato chiquito para la palabra ARS */
+.product-info .price small,
+.product-info .price .currency {
+font-size: 0.6rem !important;
+font-weight: normal !important;
+opacity: 0.75;
+}
+
+/* Casillas de talles un poco más grandes */
 .size-selector {
-margin-bottom: 6px !important;
+display: flex !important;
+gap: 3px !important;
+justify-content: center !important;
+margin-bottom: 8px !important;
+}
+
+.size-btn {
+padding: 5px 4px !important;
+font-size: 0.75rem !important;
+min-width: 25px !important;
+min-height: 25px !important;
 }
 
 .add-to-cart-btn {
@@ -1466,7 +1491,8 @@ ${(product.images || [product.image]).map(img => `
 
                         <h3 class="product-title">${product.title}</h3>
 
-                        <div class="product-price">$${product.price.toLocaleString('es-AR')} ARS</div>
+                        <div class="price">$${product.price.toLocaleString('es-AR')} <small class="currency">ARS</small></div>
+
 
                         <div class="size-selector">
 
