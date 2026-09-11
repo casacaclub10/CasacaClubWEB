@@ -881,8 +881,21 @@ font-size: 0.85rem;
 }
 
 .product-card img {
-height: 160px;
-object-fit: cover;
+height: 140px !important;
+object-fit: contain !important;
+}
+
+.product-info {
+padding: 0.4rem !important;
+}
+
+.product-info h3 {
+margin-bottom: 2px !important;
+}
+
+.product-info .price {
+font-size: 0.85rem !important;
+margin-bottom: 6px !important;
 }
 
 .size-selector {
@@ -890,13 +903,20 @@ display: flex;
 gap: 2px;
 justify-content: center;
 flex-wrap: nowrap;
+margin-bottom: 6px !important;
 }
 
 .size-btn {
-padding: 4px 2px;
-font-size: 10px;
-min-width: 22px;
+padding: 3px 2px !important;
+font-size: 9px !important;
+min-width: 20px !important;
 }
+
+.add-to-cart-btn {
+padding: 6px 8px !important;
+font-size: 0.7rem !important;
+margin-top: 4px !important;
+}    
 }
 
 /* ESTILO DEL LOGO (Aplica TANTO a Computadora COMO a Celular) */
