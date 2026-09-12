@@ -875,16 +875,24 @@ padding: 10px;
 .product-card {
 padding: 8px;
 }
-
+    
+.product-gallery-wrapper {
+position: relative !important;
+overflow: hidden !important;
+border-radius: 8px 8px 0 0 !important;
+}
+    
 .product-card h3 {
 font-size: 0.85rem;
 }
 
 .product-card img {
-height: 180px !important; /* Baja de 220px a 180px para recortar alto */
+height: 150px !important; /* Recorta la altura del contenedor de la foto */
 object-fit: cover !important;
-object-position: center !important; /* Enfoca la camiseta y corta el margen blanco sobrante */
+object-position: center !important;
+transform: scale(1.08) !important; /* Zoom sutil para eliminar bordes vacíos */
 }
+
 
 .product-info {
 padding: 0.4rem 0.5rem !important; /* Reduce los espacios vacíos arriba y abajo del texto */
