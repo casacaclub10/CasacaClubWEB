@@ -771,8 +771,47 @@ margin-bottom: 8px;
 text-align: center;
 }
 
+.shipping-info {
+font-size: 0.75rem;
+color: #a0a0a0;
+margin-bottom: 8px;
+text-align: center;
+}
 
-        .cart-total {
+.coupon-container {
+display: flex;
+gap: 8px;
+margin-bottom: 12px;
+}
+
+.coupon-input {
+flex: 1;
+padding: 8px 12px;
+border: 1px solid #444;
+border-radius: 4px;
+background-color: #222;
+color: #fff;
+font-size: 0.85rem;
+outline: none;
+}
+
+.coupon-input::placeholder {
+color: #888;
+}
+
+.coupon-btn {
+padding: 8px 14px;
+background-color: #ff9900;
+color: #000;
+border: none;
+border-radius: 4px;
+font-weight: bold;
+font-size: 0.85rem;
+cursor: pointer;
+}
+
+.cart-total {
+
 
             display: flex;
 
@@ -1369,6 +1408,10 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
             </div>
 
         <div class="cart-footer">
+            <div class="coupon-container">
+<input type="text" class="coupon-input" placeholder="Código de descuento">
+<button type="button" class="coupon-btn">Aplicar</button>
+</div>
 <p class="shipping-info">Envíos por Correo Argentino o Andreani</p>
             <div class="cart-total">
 
