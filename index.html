@@ -1410,7 +1410,7 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
         <div class="cart-footer">
             <div class="coupon-container">
 <input type="text" class="coupon-input" placeholder="Código de descuento">
-<button type="button" class="coupon-btn">Aplicar</button>
+<button type="button" class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
 </div>
 <p class="shipping-info">Envíos por Correo Argentino o Andreani</p>
             <div class="cart-total">
@@ -1675,7 +1675,8 @@ openCart();
             });
 
 
-
+total = total * (1 - currentDiscount);
+            
             cartTotalPrice.innerText = `$${total.toLocaleString('es-AR')} ARS`;
 
             
@@ -1823,7 +1824,24 @@ if (touchEndX > touchStartX + 40) prevModalImage();
 }, { passive: true });
 }
 });
-        
+
+let currentDiscount = 0; // Porcentaje de descuento activo
+const validCoupons = {
+'CASACA10': 0.10, // 10% de descuento
+'PROMO20': 0.20 // 20% de descuento
+};
+function applyCoupon() {
+const input = document.querySelector('.coupon-input');
+const couponCode = input.value.trim().toUpperCase();
+
+if (validCoupons[couponCode]) {
+currentDiscount = validCoupons[couponCode];
+alert(`¡Cupón aplicado! Descuento del ${currentDiscount * 100}%`);
+updateCartUI(); // Actualiza el carrito con el nuevo total
+} else {
+alert('Código de descuento inválido');
+}
+}        
     </script>
 <!-- Modal para agrandar imágenes -->
 <div id="image-modal" class="image-modal" onclick="closeImageModal()">
