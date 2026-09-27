@@ -1538,7 +1538,7 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
 
 
 
-       function renderProducts(filter = 'all') {
+      function renderProducts(filter = 'all') {
     productGrid.innerHTML = '';
 
     const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
@@ -1576,7 +1576,7 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
                 </div>
                 ` : ''}
 
-                <button class="add-to-cart" onclick="${isCombo ? startComboBuilder('${product.type}') : addToCart('${product.id}', this)}">
+                <button class="add-to-cart" onclick="${isCombo ? startComboBuilder('${product.type}') : addToCart(${product.id}, this)}">
                     ${isCombo ? 'Armar Combo' : 'Agregar al Carrito'}
                 </button>
             </div>
