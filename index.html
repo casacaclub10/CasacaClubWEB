@@ -1548,6 +1548,8 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
         const card = document.createElement('div');
         card.className = 'product-card';
 
+        const sizesList = product.sizes || ['S', 'M', 'L', 'XL', 'XXL'];
+
         card.innerHTML = `
             <div class="product-gallery-wrapper">
                 <span class="tag-player">${(product.badge || 'VERSIÓN JUGADOR').toUpperCase()}</span>
@@ -1567,15 +1569,14 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
                 ${!isCombo ? `
                 <div class="size-selector">
                     ${['S', 'M', 'L', 'XL', 'XXL'].map(s => {
-                        const isAvailable = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).includes(s);
-                        const availableSizes = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']);
-                        const isFirstAvailable = availableSizes[0] === s;
+                        const isAvailable = sizesList.includes(s);
+                        const isFirstAvailable = sizesList[0] === s;
                         return <button class="size-btn ${isAvailable ? (isFirstAvailable ? 'selected' : '') : 'disabled'}" ${isAvailable ? 'onclick="selectSize(this)"' : 'disabled'}>${s}</button>;
                     }).join('')}
                 </div>
                 ` : ''}
 
-                <button class="add-to-cart" onclick="${isCombo ? startComboBuilder('${product.type}') : addToCart(${product.id}, this)}">
+                <button class="add-to-cart" onclick="${isCombo ? startComboBuilder('${product.type}') : addToCart('${product.id}', this)}">
                     ${isCombo ? 'Armar Combo' : 'Agregar al Carrito'}
                 </button>
             </div>
