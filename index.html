@@ -1538,7 +1538,7 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
 
 
 
-      function renderProducts(filter = 'all') {
+       function renderProducts(filter = 'all') {
     productGrid.innerHTML = '';
 
     const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
@@ -1547,8 +1547,6 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
         const isCombo = product.category === 'combo';
         const card = document.createElement('div');
         card.className = 'product-card';
-
-        const sizesList = product.sizes || ['S', 'M', 'L', 'XL', 'XXL'];
 
         card.innerHTML = `
             <div class="product-gallery-wrapper">
@@ -1569,8 +1567,9 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
                 ${!isCombo ? `
                 <div class="size-selector">
                     ${['S', 'M', 'L', 'XL', 'XXL'].map(s => {
-                        const isAvailable = sizesList.includes(s);
-                        const isFirstAvailable = sizesList[0] === s;
+                        const isAvailable = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).includes(s);
+                        const availableSizes = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']);
+                        const isFirstAvailable = availableSizes[0] === s;
                         return <button class="size-btn ${isAvailable ? (isFirstAvailable ? 'selected' : '') : 'disabled'}" ${isAvailable ? 'onclick="selectSize(this)"' : 'disabled'}>${s}</button>;
                     }).join('')}
                 </div>
