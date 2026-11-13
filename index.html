@@ -1350,7 +1350,225 @@ body, .catalog {
     .product-info {
         padding: 8px 4px 4px 4px !important;
     }
-}        
+}      
+
+/* --- VENTANA DE COMPRA RÁPIDA (QUICK VIEW MODAL) --- */
+.qv-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2500;
+    padding: 15px;
+}
+
+.qv-modal {
+    background-color: #E6D7C3;
+    color: #2C221E;
+    border: 1px solid #A88B6C;
+    border-radius: 14px;
+    max-width: 760px;
+    width: 100%;
+    padding: 24px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    animation: qvFadeIn 0.2s ease;
+}
+
+@keyframes qvFadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.qv-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    line-height: 1;
+    color: #2C221E;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.qv-img-box {
+    background-color: #EFE6D5;
+    border: 1px solid #C2A687;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    overflow: hidden;
+}
+
+.qv-img-box img {
+    width: 100%;
+    max-height: 340px;
+    object-fit: contain;
+}
+
+.qv-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.qv-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #5C4433;
+    margin-bottom: 4px;
+}
+
+.qv-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    color: #2C221E;
+    text-transform: uppercase;
+}
+
+.qv-price {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1B4332;
+    margin-bottom: 18px;
+}
+
+.qv-price small {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5C4433;
+}
+
+.qv-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2C221E;
+}
+
+.qv-sizes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.qv-size-btn {
+    min-width: 42px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #A88B6C;
+    background-color: #EFE6D5;
+    color: #2C221E;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.qv-size-btn.selected {
+    background-color: #5C4433;
+    color: #FFFFFF;
+    border-color: #5C4433;
+}
+
+.qv-size-btn.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.qv-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.qv-qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid #A88B6C;
+    background-color: #EFE6D5;
+    border-radius: 8px;
+    height: 46px;
+    overflow: hidden;
+}
+
+.qv-qty button {
+    width: 36px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2C221E;
+    cursor: pointer;
+}
+
+.qv-qty span {
+    min-width: 32px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: #2C221E;
+}
+
+.qv-add-btn {
+    flex: 1;
+    height: 46px;
+    background-color: #1B4332;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(27, 67, 50, 0.35);
+    transition: background-color 0.2s ease;
+}
+
+.qv-add-btn:hover {
+    background-color: #2D6A4F;
+}
+
+@media (max-width: 680px) {
+    .qv-modal {
+        grid-template-columns: 1fr;
+        padding: 18px;
+        gap: 14px;
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+    .qv-img-box img {
+        max-height: 210px;
+    }
+    .qv-title {
+        font-size: 20px;
+    }
+    .qv-price {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+}         
 </style>
     
 
@@ -1539,7 +1757,32 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
 
     </footer>
 
+<!-- MODAL DE COMPRA RÁPIDA -->
+<div class="qv-overlay" id="quick-view-modal" onclick="if(event.target === this) closeQuickView()">
+    <div class="qv-modal">
+        <button type="button" class="qv-close" onclick="closeQuickView()">&times;</button>
+        <div class="qv-img-box">
+            <img id="qv-img" src="" alt="Camiseta">
+        </div>
+        <div class="qv-details">
+            <span class="qv-badge" id="qv-badge">VERSIÓN JUGADOR</span>
+            <h3 class="qv-title" id="qv-title">Producto</h3>
+            <div class="qv-price" id="qv-price">$0 <small>ARS</small></div>
 
+            <div class="qv-label">Talle: <span id="qv-selected-size-label">M</span></div>
+            <div class="qv-sizes" id="qv-sizes"></div>
+
+            <div class="qv-actions">
+                <div class="qv-qty">
+                    <button type="button" onclick="changeQvQty(-1)">-</button>
+                    <span id="qv-qty-val">1</span>
+                    <button type="button" onclick="changeQvQty(1)">+</button>
+                </div>
+                <button type="button" class="qv-add-btn" onclick="confirmQuickAddToCart()">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+</div> 
 
     <script>
 
@@ -1663,23 +1906,10 @@ ${(product.images || [product.image]).map(img => `
 
 
                     <div class="product-info">
-
-                        <h3 class="product-title">${product.title}</h3>
-
-                        <div class="price">$${product.price.toLocaleString('es-AR')} <small class="currency">ARS</small></div>
-
-
-                        <div class="size-selector">
-
-                           ${['S', 'M', 'L', 'XL', 'XXL'].map(s => {
-const isAvailable = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).includes(s);
-const availableSizes = (product.sizes || ['S', 'M', 'L', 'XL', 'XXL']);
-const isFirstAvailable = availableSizes[0] === s;
-return `<button class="size-btn ${isAvailable ? (isFirstAvailable ? 'selected' : '') : 'disabled'}" ${isAvailable ? `onclick="selectSize(this)"` : 'disabled'}>${s}</button>`;
-}).join('')}
-
-
-                        </div>
+                <h3 class="product-title">${product.title}</h3>
+                <div class="price">$${product.price.toLocaleString('es-AR')} <small class="currency">ARS</small></div>
+                <button type="button" class="add-to-cart" onclick="openQuickView(${product.id})">Comprar</button>
+            </div>
 
                         <button class="add-to-cart" onclick="addToCart(${product.id}, this)">Agregar al Carrito</button>
 
@@ -1722,7 +1952,74 @@ if (addToCartModal) {
 addToCartModal.style.display = 'flex';
 }
 }
+let qvCurrentProduct = null;
+let qvSelectedSize = 'M';
+let qvQuantity = 1;
 
+function openQuickView(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    qvCurrentProduct = product;
+    qvQuantity = 1;
+    document.getElementById('qv-qty-val').innerText = qvQuantity;
+
+    const mainImg = (product.images && product.images.length > 0) ? product.images[0] : product.image;
+    document.getElementById('qv-img').src = mainImg;
+    document.getElementById('qv-badge').innerText = (product.badge || 'VERSIÓN JUGADOR').toUpperCase();
+    document.getElementById('qv-title').innerText = product.title;
+    document.getElementById('qv-price').innerHTML = $${product.price.toLocaleString('es-AR')} <small>ARS</small>;
+
+    const allSizes = ['S', 'M', 'L', 'XL', 'XXL'];
+    const availableSizes = product.sizes || allSizes;
+    qvSelectedSize = availableSizes[0] || 'M';
+    document.getElementById('qv-selected-size-label').innerText = qvSelectedSize;
+
+    const sizesContainer = document.getElementById('qv-sizes');
+    sizesContainer.innerHTML = allSizes.map(s => {
+        const isAvailable = availableSizes.includes(s);
+        const isSelected = s === qvSelectedSize;
+        return <button type="button" class="qv-size-btn ${isAvailable ? (isSelected ? 'selected' : '') : 'disabled'}" ${isAvailable ? `onclick="selectQvSize('${s}', this)" : 'disabled'}>${s}</button>`;
+    }).join('');
+
+    document.getElementById('quick-view-modal').style.display = 'flex';
+}
+
+function closeQuickView() {
+    document.getElementById('quick-view-modal').style.display = 'none';
+}
+
+function selectQvSize(size, btn) {
+    qvSelectedSize = size;
+    document.getElementById('qv-selected-size-label').innerText = size;
+    document.querySelectorAll('.qv-size-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+}
+
+function changeQvQty(delta) {
+    qvQuantity = Math.max(1, qvQuantity + delta);
+    document.getElementById('qv-qty-val').innerText = qvQuantity;
+}
+
+function confirmQuickAddToCart() {
+    if (!qvCurrentProduct) return;
+
+    for (let i = 0; i < qvQuantity; i++) {
+        cart.push({ ...qvCurrentProduct, selectedSize: qvSelectedSize });
+    }
+
+    if (typeof updateCartUI === 'function') {
+        updateCartUI();
+    }
+
+    closeQuickView();
+
+    const addToCartModal = document.getElementById('add-to-cart-modal');
+    if (addToCartModal) {
+        addToCartModal.style.display = 'flex';
+    }
+}        
+        
 function closeAddToCartModal() {
 const modal = document.getElementById('add-to-cart-modal');
 if (modal) {
