@@ -1409,14 +1409,15 @@ body, .catalog {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 0;
     overflow: hidden;
 }
 
 .qv-img-box img {
     width: 100%;
-    max-height: 340px;
-    object-fit: contain;
+    height: 360px;
+    object-fit: cover;
+    transform: scale(1.22);
 }
 
 .qv-details {
@@ -1559,7 +1560,8 @@ body, .catalog {
         overflow-y: auto;
     }
     .qv-img-box img {
-        max-height: 210px;
+        height: 270px;
+        transform: scale(1.25);
     }
     .qv-title {
         font-size: 20px;
