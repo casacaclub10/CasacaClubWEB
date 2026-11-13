@@ -1968,7 +1968,7 @@ function openQuickView(productId) {
     document.getElementById('qv-img').src = mainImg;
     document.getElementById('qv-badge').innerText = (product.badge || 'VERSIÓN JUGADOR').toUpperCase();
     document.getElementById('qv-title').innerText = product.title;
-    document.getElementById('qv-price').innerHTML = $${product.price.toLocaleString('es-AR')} <small>ARS</small>;
+    document.getElementById('qv-price').innerHTML = '$' + product.price.toLocaleString('es-AR') + ' <small>ARS</small>';
 
     const allSizes = ['S', 'M', 'L', 'XL', 'XXL'];
     const availableSizes = product.sizes || allSizes;
