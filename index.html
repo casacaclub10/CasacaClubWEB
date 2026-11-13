@@ -1262,9 +1262,77 @@ text-decoration: line-through;
 cursor: not-allowed !important;
 opacity: 0.5;
 pointer-events: none;
+}  
+
+/* --- NUEVA PALETA CLARA: CREMITA, MARRÓN Y CELESTE --- */
+
+body, .catalog {
+    background-color: #F7F4EB !important;
+    color: #2C221E !important;
+}
+
+.section-title {
+    color: #2C221E !important;
+}
+
+/* Botones de filtro (Todos, Camisetas, Retros, etc.) */
+.filter-btn {
+    color: #2C221E !important;
+    border-color: #C2A887 !important;
+    background-color: transparent !important;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: #8C6D53 !important;
+    color: #FFFFFF !important;
+    border-color: #8C6D53 !important;
+}
+
+/* Tarjetas de productos (Marroncito claro) */
+.product-card {
+    background-color: #D8C3A5 !important;
+    border: 1px solid #C2A887 !important;
+    box-shadow: 0 4px 12px rgba(44, 34, 30, 0.08) !important;
+}
+
+.product-title, .price {
+    color: #2C221E !important;
+}
+
+/* Botones de talles dentro de la tarjeta */
+.size-btn {
+    background-color: #EFE6D5 !important;
+    color: #2C221E !important;
+    border: 1px solid #B89F7D !important;
+}
+
+.size-btn.selected {
+    background-color: #5C4433 !important;
+    color: #FFFFFF !important;
+    border-color: #5C4433 !important;
+}
+
+.size-btn.disabled {
+    opacity: 0.45 !important;
+}
+
+/* Botón Agregar al Carrito (Celeste llamativo) */
+.add-to-cart {
+    background-color: #38BDF8 !important;
+    color: #082F49 !important;
+    font-weight: 800 !important;
+    border: none !important;
+    box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4) !important;
+    transition: transform 0.15s ease, background-color 0.2s ease !important;
+}
+
+.add-to-cart:hover {
+    background-color: #0284C7 !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px) !important;
 }        
 </style>
-
+    
 
 </head>
 
