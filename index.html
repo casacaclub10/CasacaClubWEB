@@ -1979,7 +1979,9 @@ function openQuickView(productId) {
     sizesContainer.innerHTML = allSizes.map(s => {
         const isAvailable = availableSizes.includes(s);
         const isSelected = s === qvSelectedSize;
-        return <button type="button" class="qv-size-btn ${isAvailable ? (isSelected ? 'selected' : '') : 'disabled'}" ${isAvailable ? `onclick="selectQvSize('${s}', this)" : 'disabled'}>${s}</button>`;
+        const btnClass = 'qv-size-btn ' + (isAvailable ? (isSelected ? 'selected' : '') : 'disabled');
+        const clickAttr = isAvailable ? 'onclick="selectQvSize(\'' + s + '\', this)"' : 'disabled';
+        return '<button type="button" class="' + btnClass + '" ' + clickAttr + '>' + s + '</button>';
     }).join('');
 
     document.getElementById('quick-view-modal').style.display = 'flex';
