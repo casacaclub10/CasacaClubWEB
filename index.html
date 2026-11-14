@@ -1716,23 +1716,27 @@ footer ~ section h2,
     border-color: #40916C;
     color: #FFFFFF;
 }    
-/* --- BUSCADOR DE PRODUCTOS --- */
+/* --- BUSCADOR Y FILTROS DE PRODUCTOS --- */
 .search-bar-wrapper {
-    max-width: 520px;
+    max-width: 880px;
     margin: 0 auto 22px auto;
     padding: 0 12px;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
 }
 
 .search-input-box {
     position: relative;
     display: flex;
     align-items: center;
+    flex: 1 1 260px;
 }
 
 .search-input-box input {
     width: 100%;
-    padding: 12px 42px 12px 40px;
+    padding: 11px 40px 11px 38px;
     border-radius: 10px;
     border: 1.5px solid #C2A687;
     background-color: #FAF6EE;
@@ -1755,8 +1759,8 @@ footer ~ section h2,
 
 .search-icon-left {
     position: absolute;
-    left: 13px;
-    font-size: 15px;
+    left: 12px;
+    font-size: 14px;
     color: #7A5C43;
     pointer-events: none;
 }
@@ -1767,10 +1771,10 @@ footer ~ section h2,
     background: #E6D7C3;
     border: none;
     color: #2C221E;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
     cursor: pointer;
     display: none;
@@ -1780,6 +1784,31 @@ footer ~ section h2,
 
 .search-clear-btn:hover {
     background: #C2A687;
+}
+
+.filter-selects-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1 1 360px;
+}
+
+.catalog-filter-select {
+    flex: 1 1 130px;
+    padding: 11px 10px;
+    border-radius: 10px;
+    border: 1.5px solid #C2A687;
+    background-color: #FAF6EE;
+    color: #2C221E;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.catalog-filter-select:focus {
+    border-color: #2D6A4F;
 }
 
 .no-results-msg {
@@ -2105,6 +2134,9 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
 
        let currentCategoryFilter = 'all';
 let currentSearchTerm = '';
+let currentLeagueFilter = 'all';
+let currentVersionFilter = 'all';
+let currentSortOrder = 'default';
 
 function normalizeText(text) {
     return (text || '')
@@ -2112,6 +2144,41 @@ function normalizeText(text) {
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '');
+}
+
+function getProductVersion(product) {
+    const raw = normalizeText((product.badge || '') + ' ' + (product.title || ''));
+    if (raw.includes('retro')) return 'retro';
+    if (raw.includes('fan')) return 'fan';
+    return 'jugador';
+}
+
+function getProductLeague(product) {
+    if (product.league) return normalizeText(product.league);
+    const title = normalizeText(product.title || '');
+
+    const selecciones = [
+        'argentina', 'brasil', 'brazil', 'uruguay', 'espana', 'francia',
+        'alemania', 'italia', 'portugal', 'inglaterra', 'england', 'holanda',
+        'paises bajos', 'colombia', 'chile', 'mexico', 'japon', 'croacia',
+        'belgica', 'seleccion', 'afa'
+    ];
+    if (selecciones.some(s => title.includes(s))) {
+        return 'selecciones';
+    }
+
+    const futbolArgentino = [
+        'boca', 'river', 'independiente', 'racing', 'san lorenzo', 'huracan',
+        'velez', 'estudiantes', 'gimnasia', 'newell', 'rosario central',
+        'talleres', 'belgrano', 'lanus', 'banfield', 'argentinos', 'defensa',
+        'colon', 'union', 'tucuman', 'chacarita', 'ferro', 'quilmes',
+        'platense', 'tigre', 'godoy cruz', 'instituto', 'sarmiento'
+    ];
+    if (futbolArgentino.some(c => title.includes(c))) {
+        return 'argentina';
+    }
+
+    return 'internacional';
 }
 
 function ensureSearchBar() {
@@ -2122,14 +2189,36 @@ function ensureSearchBar() {
     wrapper.innerHTML =
         '<div class="search-input-box">' +
             '<span class="search-icon-left">🔍</span>' +
-            '<input type="text" id="product-search-input" placeholder="Buscar camiseta, short, equipo o año..." autocomplete="off">' +
+            '<input type="text" id="product-search-input" placeholder="Buscar camiseta, short, equipo..." autocomplete="off">' +
             '<button type="button" class="search-clear-btn" id="product-search-clear" title="Limpiar búsqueda">✕</button>' +
+        '</div>' +
+        '<div class="filter-selects-group">' +
+            '<select id="filter-league-select" class="catalog-filter-select" aria-label="Filtrar por tipo de equipo">' +
+                '<option value="all">Equipos: Todos</option>' +
+                '<option value="argentina">Fútbol Argentino</option>' +
+                '<option value="internacional">Clubes Internacionales</option>' +
+                '<option value="selecciones">Selecciones</option>' +
+            '</select>' +
+            '<select id="filter-version-select" class="catalog-filter-select" aria-label="Filtrar por versión">' +
+                '<option value="all">Versión: Todas</option>' +
+                '<option value="jugador">Versión Jugador</option>' +
+                '<option value="fan">Versión Fan</option>' +
+                '<option value="retro">Versión Retro</option>' +
+            '</select>' +
+            '<select id="sort-price-select" class="catalog-filter-select" aria-label="Ordenar por precio">' +
+                '<option value="default">Ordenar: Destacados</option>' +
+                '<option value="price-asc">Menor precio</option>' +
+                '<option value="price-desc">Mayor precio</option>' +
+            '</select>' +
         '</div>';
 
     productGrid.parentNode.insertBefore(wrapper, productGrid);
 
     const inputEl = document.getElementById('product-search-input');
     const clearBtn = document.getElementById('product-search-clear');
+    const leagueSelect = document.getElementById('filter-league-select');
+    const versionSelect = document.getElementById('filter-version-select');
+    const sortSelect = document.getElementById('sort-price-select');
 
     inputEl.addEventListener('input', function () {
         currentSearchTerm = this.value;
@@ -2144,6 +2233,21 @@ function ensureSearchBar() {
         inputEl.focus();
         renderProducts(currentCategoryFilter);
     });
+
+    leagueSelect.addEventListener('change', function () {
+        currentLeagueFilter = this.value;
+        renderProducts(currentCategoryFilter);
+    });
+
+    versionSelect.addEventListener('change', function () {
+        currentVersionFilter = this.value;
+        renderProducts(currentCategoryFilter);
+    });
+
+    sortSelect.addEventListener('change', function () {
+        currentSortOrder = this.value;
+        renderProducts(currentCategoryFilter);
+    });
 }
 
 function renderProducts(filter) {
@@ -2156,17 +2260,25 @@ function renderProducts(filter) {
 
     const query = normalizeText(currentSearchTerm.trim());
 
-    const filteredProducts = products.filter(p => {
+    let filteredProducts = products.filter(p => {
         const matchesCategory = currentCategoryFilter === 'all' || p.category === currentCategoryFilter;
+        const matchesLeague = currentLeagueFilter === 'all' || getProductLeague(p) === currentLeagueFilter;
+        const matchesVersion = currentVersionFilter === 'all' || getProductVersion(p) === currentVersionFilter;
         const matchesSearch = !query ||
             normalizeText(p.title).includes(query) ||
             normalizeText(p.category).includes(query) ||
             normalizeText(p.badge).includes(query);
-        return matchesCategory && matchesSearch;
+        return matchesCategory && matchesLeague && matchesVersion && matchesSearch;
     });
 
+    if (currentSortOrder === 'price-asc') {
+        filteredProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
+    } else if (currentSortOrder === 'price-desc') {
+        filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
+    }
+
     if (filteredProducts.length === 0) {
-        productGrid.innerHTML = '<div class="no-results-msg">No encontramos productos que coincidan con "' + currentSearchTerm.trim() + '". Probá con otro equipo o categoría.</div>';
+        productGrid.innerHTML = '<div class="no-results-msg">No encontramos productos con esos filtros. Probá cambiar las opciones o limpiar la búsqueda.</div>';
         return;
     }
             filteredProducts.forEach(product => {
