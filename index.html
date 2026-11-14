@@ -1715,7 +1715,81 @@ footer ~ section h2,
     background-color: #2D6A4F;
     border-color: #40916C;
     color: #FFFFFF;
-}         
+}    
+/* --- BUSCADOR DE PRODUCTOS --- */
+.search-bar-wrapper {
+    max-width: 520px;
+    margin: 0 auto 22px auto;
+    padding: 0 12px;
+    position: relative;
+}
+
+.search-input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-box input {
+    width: 100%;
+    padding: 12px 42px 12px 40px;
+    border-radius: 10px;
+    border: 1.5px solid #C2A687;
+    background-color: #FAF6EE;
+    color: #2C221E;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input-box input::placeholder {
+    color: #8C735B;
+    font-weight: 500;
+}
+
+.search-input-box input:focus {
+    border-color: #2D6A4F;
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.14);
+}
+
+.search-icon-left {
+    position: absolute;
+    left: 13px;
+    font-size: 15px;
+    color: #7A5C43;
+    pointer-events: none;
+}
+
+.search-clear-btn {
+    position: absolute;
+    right: 10px;
+    background: #E6D7C3;
+    border: none;
+    color: #2C221E;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-clear-btn:hover {
+    background: #C2A687;
+}
+
+.no-results-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 36px 16px;
+    color: #5C4433;
+    font-size: 15px;
+    font-weight: 600;
+}
 </style>
     
 
@@ -2029,14 +2103,72 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
 
 
 
-        function renderProducts(filter = 'all') {
+       let currentCategoryFilter = 'all';
+let currentSearchTerm = '';
 
-            productGrid.innerHTML = '';
+function normalizeText(text) {
+    return (text || '')
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+}
 
-            const filteredProducts = filter === 'all' ? products : products.filter(p => p.category === filter);
+function ensureSearchBar() {
+    if (document.getElementById('product-search-input') || !productGrid) return;
 
+    const wrapper = document.createElement('div');
+    wrapper.className = 'search-bar-wrapper';
+    wrapper.innerHTML =
+        '<div class="search-input-box">' +
+            '<span class="search-icon-left">🔍</span>' +
+            '<input type="text" id="product-search-input" placeholder="Buscar camiseta, short, equipo o año..." autocomplete="off">' +
+            '<button type="button" class="search-clear-btn" id="product-search-clear" title="Limpiar búsqueda">✕</button>' +
+        '</div>';
 
+    productGrid.parentNode.insertBefore(wrapper, productGrid);
 
+    const inputEl = document.getElementById('product-search-input');
+    const clearBtn = document.getElementById('product-search-clear');
+
+    inputEl.addEventListener('input', function () {
+        currentSearchTerm = this.value;
+        clearBtn.style.display = currentSearchTerm.trim().length > 0 ? 'flex' : 'none';
+        renderProducts(currentCategoryFilter);
+    });
+
+    clearBtn.addEventListener('click', function () {
+        inputEl.value = '';
+        currentSearchTerm = '';
+        clearBtn.style.display = 'none';
+        inputEl.focus();
+        renderProducts(currentCategoryFilter);
+    });
+}
+
+function renderProducts(filter) {
+    if (typeof filter === 'string') {
+        currentCategoryFilter = filter;
+    }
+
+    ensureSearchBar();
+    productGrid.innerHTML = '';
+
+    const query = normalizeText(currentSearchTerm.trim());
+
+    const filteredProducts = products.filter(p => {
+        const matchesCategory = currentCategoryFilter === 'all' || p.category === currentCategoryFilter;
+        const matchesSearch = !query ||
+            normalizeText(p.title).includes(query) ||
+            normalizeText(p.category).includes(query) ||
+            normalizeText(p.badge).includes(query);
+        return matchesCategory && matchesSearch;
+    });
+
+    if (filteredProducts.length === 0) {
+        productGrid.innerHTML = '<div class="no-results-msg">No encontramos productos que coincidan con "' + currentSearchTerm.trim() + '". Probá con otro equipo o categoría.</div>';
+        return;
+    }
             filteredProducts.forEach(product => {
 
                 const card = document.createElement('div');
