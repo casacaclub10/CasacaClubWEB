@@ -1617,6 +1617,105 @@ footer ~ section h2,
 .catalog + section h2 {
     color: #E6D7C3 !important;
 }         
+
+/* --- DOBLE PRECIO EN TARJETAS Y QUICK VIEW --- */
+.price-card {
+    font-size: 16px;
+    font-weight: 800;
+    color: #2C221E;
+    margin-bottom: 3px;
+    line-height: 1.2;
+}
+
+.price-card .currency,
+.price-card .pay-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #5C4433;
+}
+
+.price-cash {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #2D6A4F;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.price-cash .currency,
+.price-cash .pay-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #40916C;
+}
+
+/* Precios dentro de la ventana Quick View */
+.qv-price-card {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2C221E;
+    margin-bottom: 4px;
+}
+
+.qv-price-card small {
+    font-size: 13px;
+    font-weight: 700;
+    color: #5C4433;
+}
+
+.qv-price-cash {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2D6A4F;
+    margin-bottom: 16px;
+}
+
+.qv-price-cash small {
+    font-size: 12px;
+    font-weight: 700;
+    color: #40916C;
+}
+
+/* Selector de medio de pago en el carrito lateral */
+.cart-payment-box {
+    margin: 10px 0 12px 0;
+    text-align: left;
+}
+
+.cart-payment-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #E6D7C3;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.cart-payment-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.pay-opt-btn {
+    padding: 8px 6px;
+    border-radius: 6px;
+    border: 1px solid #5C4433;
+    background-color: #242424;
+    color: #E6D7C3;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.pay-opt-btn.active {
+    background-color: #2D6A4F;
+    border-color: #40916C;
+    color: #FFFFFF;
+}         
 </style>
     
 
@@ -1788,7 +1887,13 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
                 <span id="cart-total-price">$0 ARS</span>
 
             </div>
-
+<div class="cart-payment-box">
+    <span class="cart-payment-label">Medio de pago:</span>
+    <div class="cart-payment-options">
+        <button type="button" class="pay-opt-btn active" id="pay-btn-cash" onclick="setPaymentMethod('cash')">Efectivo / Transf.</button>
+        <button type="button" class="pay-opt-btn" id="pay-btn-card" onclick="setPaymentMethod('card')">Tarjeta</button>
+    </div>
+</div> 
             <a href="#" class="btn-whatsapp" id="send-whatsapp-btn" target="_blank">Finalizar Pedido por WhatsApp</a>
 
         </div>
@@ -1815,7 +1920,8 @@ GUÍA DE TALLES - JUGADOR/FAN/RETRO 🔍
         <div class="qv-details">
             <span class="qv-badge" id="qv-badge">VERSIÓN JUGADOR</span>
             <h3 class="qv-title" id="qv-title">Producto</h3>
-            <div class="qv-price" id="qv-price">$0 <small>ARS</small></div>
+            <div class="qv-price-card" id="qv-price-card">$0 <small>ARS (con tarjeta)</small></div>
+            <div class="qv-price-cash" id="qv-price-cash">$0 <small>ARS (efectivo/transferencia)</small></div>
 
             <div class="qv-label">Talle: <span id="qv-selected-size-label">M</span></div>
             <div class="qv-sizes" id="qv-sizes"></div>
@@ -1955,9 +2061,10 @@ ${(product.images || [product.image]).map(img => `
 
                     <div class="product-info">
                 <h3 class="product-title">${product.title}</h3>
-                <div class="price">$${product.price.toLocaleString('es-AR')} <small class="currency">ARS</small></div>
+                <div class="price-card">$${getCardPrice(product.price).toLocaleString('es-AR')} <small class="currency">ARS</small> <span class="pay-tag">(con tarjeta)</span></div>
+                <div class="price-cash">$${product.price.toLocaleString('es-AR')} <small class="currency">ARS</small> <span class="pay-tag">(efectivo/transferencia)</span></div>
                 <button type="button" class="add-to-cart" onclick="openQuickView(${product.id})">Comprar</button>
-            </div>
+            </div> 
 
 
                 `;
@@ -2000,7 +2107,31 @@ addToCartModal.style.display = 'flex';
 let qvCurrentProduct = null;
 let qvSelectedSize = 'M';
 let qvQuantity = 1;
+let selectedPaymentMethod = 'cash'; // 'cash' = Efectivo/Transferencia | 'card' = Tarjeta
 
+function getCardPrice(cashPrice) {
+    const priceMap = {
+        45000: 49000,
+        47000: 51000,
+        50000: 54000,
+        55000: 60700,
+        60000: 64500
+    };
+    return priceMap[cashPrice] || Math.round(cashPrice * 1.08);
+}
+
+function setPaymentMethod(method) {
+    selectedPaymentMethod = method;
+    const cashBtn = document.getElementById('pay-btn-cash');
+    const cardBtn = document.getElementById('pay-btn-card');
+    if (cashBtn && cardBtn) {
+        cashBtn.classList.toggle('active', method === 'cash');
+        cardBtn.classList.toggle('active', method === 'card');
+    }
+    if (typeof updateCartUI === 'function') {
+        updateCartUI();
+    }
+} 
 function openQuickView(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
@@ -2013,7 +2144,9 @@ function openQuickView(productId) {
     document.getElementById('qv-img').src = mainImg;
     document.getElementById('qv-badge').innerText = (product.badge || 'VERSIÓN JUGADOR').toUpperCase();
     document.getElementById('qv-title').innerText = product.title;
-    document.getElementById('qv-price').innerHTML = '$' + product.price.toLocaleString('es-AR') + ' <small>ARS</small>';
+    const cardPrice = getCardPrice(product.price);
+    document.getElementById('qv-price-card').innerHTML = '$' + cardPrice.toLocaleString('es-AR') + ' <small>ARS (con tarjeta)</small>';
+    document.getElementById('qv-price-cash').innerHTML = '$' + product.price.toLocaleString('es-AR') + ' <small>ARS (efectivo/transferencia)</small>'; 
 
     const allSizes = ['S', 'M', 'L', 'XL', 'XXL'];
     const availableSizes = product.sizes || allSizes;
@@ -2099,73 +2232,45 @@ openCart();
 
 
         function updateCartUI() {
+    cartCount.innerText = cart.length;
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
 
-            cartCount.innerText = cart.length;
+    cart.forEach((item, index) => {
+        const unitPrice = selectedPaymentMethod === 'card' ? getCardPrice(item.price) : item.price;
+        total += unitPrice;
 
-            cartItemsContainer.innerHTML = '';
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = '<div class="cart-item-details">' +
+            '<h4>' + item.title + '</h4>' +
+            '<p>Talle: <strong>' + item.selectedSize + '</strong></p>' +
+            '<p>$' + unitPrice.toLocaleString('es-AR') + ' ARS</p>' +
+            '</div>' +
+            '<button class="remove-item" onclick="removeFromCart(' + index + ')">Eliminar</button>';
+        cartItemsContainer.appendChild(itemEl);
+    });
 
-            let total = 0;
+    total = total * (1 - currentDiscount);
+    cartTotalPrice.innerText = '$' + total.toLocaleString('es-AR') + ' ARS';
 
+    // Build WhatsApp message
+    if (cart.length > 0) {
+        const paymentLabel = selectedPaymentMethod === 'card' ? 'Tarjeta' : 'Efectivo / Transferencia';
+        let msg = '¡Hola! Quisiera realizar un pedido en Casaca Club:%0A%0A';
 
+        cart.forEach((item, idx) => {
+            const unitPrice = selectedPaymentMethod === 'card' ? getCardPrice(item.price) : item.price;
+            msg += (idx + 1) + '. ' + item.title + ' - Talle: ' + item.selectedSize + ' - $' + unitPrice.toLocaleString('es-AR') + '%0A';
+        });
 
-            cart.forEach((item, index) => {
-
-                total += item.price;
-
-                const itemEl = document.createElement('div');
-
-                itemEl.className = 'cart-item';
-
-                itemEl.innerHTML = `
-
-                    <div class="cart-item-details">
-
-                        <h4>${item.title}</h4>
-
-                        <p>Talle: <strong>${item.selectedSize}</strong></p>
-
-                        <p>$${item.price.toLocaleString('es-AR')} ARS</p>
-
-                    </div>
-
-                    <button class="remove-item" onclick="removeFromCart(${index})">Eliminar</button>
-
-                `;
-
-                cartItemsContainer.appendChild(itemEl);
-
-            });
-
-
-total = total * (1 - currentDiscount);
-            
-            cartTotalPrice.innerText = `$${total.toLocaleString('es-AR')} ARS`;
-
-            
-
-            // Build WhatsApp message
-
-            if (cart.length > 0) {
-
-                let msg = "¡Hola! Quisiera realizar un pedido en *Casaca Club*:%0A%0A";
-
-                cart.forEach((item, idx) => {
-
-                    msg += `${idx + 1}. *${item.title}* - Talle: ${item.selectedSize} - $${item.price.toLocaleString('es-AR')}%0A`;
-
-                });
-
-                msg += `%0A*Total:* $${total.toLocaleString('es-AR')} ARS`;
-
-                sendWhatsappBtn.href = `https://wa.me/${phoneWhatsapp}?text=${msg}`;
-
-            } else {
-
-                sendWhatsappBtn.href = "#";
-
-            }
-
-        }
+        msg += '%0A*Medio de pago:* ' + paymentLabel;
+        msg += '%0A*Total:* $' + total.toLocaleString('es-AR') + ' ARS';
+        sendWhatsappBtn.href = 'https://wa.me/' + phoneWhatsapp + '?text=' + msg;
+    } else {
+        sendWhatsappBtn.href = '#';
+    }
+}
 
 
 
