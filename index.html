@@ -16,7 +16,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Casaca Club | Indumentaria Deportiva</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -2396,9 +2397,9 @@ function renderProducts(filter) {
 
 <button type="button" class="gallery-arrow prev" onclick="scrollGallery(this, -1)">❮</button>
 <div class="product-gallery">
-${(product.images || [product.image]).map(img => `
-<img src="${img}" alt="${product.title}" onclick="openImageModal('${img}', ${JSON.stringify(product.images || [product.image]).replace(/"/g, '&quot;')})">
-`).join('')}
+${(product.images || [product.image]).map((img, idx) => `
+    <img src="${img}" alt="${product.title}" loading="${idx === 0 ? 'lazy' : 'lazy'}" decoding="async" onclick="openImageModal('${img}', ${JSON.stringify(product.images || [product.image]).replace(/"/g, '&quot;')})">
+`).join('')} 
 </div>
 <button type="button" class="gallery-arrow next" onclick="scrollGallery(this, 1)">❯</button>
 </div>
@@ -2759,21 +2760,21 @@ function initHeroMarquee() {
     const track = document.getElementById('hero-marquee-track');
     if (!track || !Array.isArray(products) || products.length === 0) return;
 
-    const buildCardsHTML = () => products.map(p => {
+    const sample = products.slice(0, 14);
+    const buildCardsHTML = () => sample.map(p => {
         const imgSrc = (p.images && p.images.length > 0) ? p.images[0] : p.image;
         return '<div class="marquee-item-card" onclick="openQuickView(' + p.id + ')">' +
-            '<img src="' + imgSrc + '" alt="' + p.title + '" loading="lazy">' +
+            '<img src="' + imgSrc + '" alt="' + p.title + '" loading="lazy" decoding="async">' +
             '<div class="marquee-item-title">' + p.title + '</div>' +
             '<div class="marquee-item-price">$' + p.price.toLocaleString('es-AR') + ' <small>ef./transf.</small></div>' +
         '</div>';
     }).join('');
 
-    // Se duplica la lista para que el bucle infinito no tenga saltos
     const itemsHTML = buildCardsHTML();
     track.innerHTML = itemsHTML + itemsHTML;
 }
 
-initHeroMarquee();
+initHeroMarquee(); 
     </script>
 <!-- Modal para agrandar imágenes -->
 <div id="image-modal" class="image-modal" onclick="closeImageModal()">
