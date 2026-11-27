@@ -3037,12 +3037,30 @@ function goToCategory(cat) {
     const target = document.getElementById('product-grid') || document.querySelector('.catalog-section');
     if (target) target.scrollIntoView({ behavior: 'smooth' });
 
-    // Activa automáticamente el botón o filtro correspondiente de tu catálogo
-    const filterBtns = document.querySelectorAll('.filter-btn, [data-category], select option');
-    filterBtns.forEach(el => {
+    // 1. Limpiar buscador si había texto escrito
+    const searchInput = document.getElementById('search-input') || document.querySelector('input[type="search"], input[placeholder*="Buscar"]');
+    if (searchInput) searchInput.value = '';
+
+    // 2. Resetear todos los desplegables (<select>) a su primera opción ("Todas")
+    document.querySelectorAll('select').forEach(sel => {
+        if (sel.id !== 'sort-select' && !sel.id.includes('sort')) {
+            sel.selectedIndex = 0;
+            sel.dispatchEvent(new Event('change'));
+        }
+    });
+
+    // 3. Resetear los botones de categoría a "Todos"
+    const allBtn = Array.from(document.querySelectorAll('.filter-btn, [data-category]'))
+        .find(el => (el.textContent || '').toLowerCase().includes('todo'));
+    if (allBtn) allBtn.click();
+
+    // 4. Si eligió "Todos", ya terminó; si eligió una categoría o liga puntual, activarla limpia
+    if (cat === 'all') return;
+
+    const filterEls = document.querySelectorAll('.filter-btn, [data-category], select option');
+    filterEls.forEach(el => {
         const text = (el.textContent || el.value || '').toLowerCase();
-        if (cat === 'all' && text.includes('todo')) el.click();
-        else if (text.includes(cat)) {
+        if (text.includes(cat)) {
             if (el.tagName === 'OPTION') {
                 el.parentElement.value = el.value;
                 el.parentElement.dispatchEvent(new Event('change'));
